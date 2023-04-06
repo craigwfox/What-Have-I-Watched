@@ -1,0 +1,25 @@
+header,
+footer {
+	padding: var(--space-m) var(--wrapper-main);
+
+	background: #333;
+
+	color: #fff;
+	text-align: center;
+}
+
+main {
+	padding: var(--space-m) var(--wrapper-main);
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+	gap: var(--space-xl) var(--space-l);
+}
+
+.flow {
+	> * + * {
+		margin-block-start: var(--space-s);
+	}
+}
