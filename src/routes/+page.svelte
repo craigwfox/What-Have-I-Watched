@@ -25,7 +25,7 @@
 					<li>Watch date: {movie.watch_date}</li>
 					<li>IMDB ID: {movie.imdb_id}</li>
 					{#if movie.rating_craig}
-						{#if movie.rating_becca == null}
+						{#if movie.rating_rebecca == null}
 							<li>Rating: {movie.rating_craig}</li>
 						{:else}
 							<li>Craig Rating: {movie.rating_craig}</li>
