@@ -139,7 +139,7 @@
 					</div>
 					<div class="input-group">
 						<label for="picked">Picked</label>
-						<select name="picked" id="picked" bind:value={picked}>
+						<select name="picked" id="picked" bind:value={picked} required>
 							<option value="NULL">None</option>
 							<option value="Rebecca">Rebecca</option>
 							<option value="Craig">Craig</option>
@@ -147,7 +147,7 @@
 					</div>
 					<div class="input-group">
 						<label for="rating_craig">Craig's rating</label>
-						<select name="rating_craig" id="rating_craig" bind:value={ratingCraig}>
+						<select name="rating_craig" id="rating_craig" bind:value={ratingCraig} required>
 							<option value="Great">Great</option>
 							<option value="Good">Good</option>
 							<option value="Ok">Ok</option>
@@ -158,7 +158,7 @@
 					</div>
 					<div class="input-group">
 						<label for="rating_rebecca">Rebecca's rating</label>
-						<select name="rating_rebecca" id="rating_rebecca" bind:value={ratingRebecca}>
+						<select name="rating_rebecca" id="rating_rebecca" bind:value={ratingRebecca} required>
 							<option value="Great">Great</option>
 							<option value="Good">Good</option>
 							<option value="Ok">Ok</option>
@@ -201,31 +201,38 @@
 					<div class="inputs">
 						<div class="input-group">
 							<label for="imdb_id">IMDB ID</label>
-							<input type="text" name="imdb_id" id="imdb_id" bind:value={imdbId} />
+							<input required type="text" name="imdb_id" id="imdb_id" bind:value={imdbId} />
 						</div>
 						<div class="input-group">
 							<label for="tmdb_id">TMDB ID</label>
-							<input type="text" name="tmdb_id" id="tmdb_id" bind:value={tmdbId} />
+							<input required type="text" name="tmdb_id" id="tmdb_id" bind:value={tmdbId} />
 						</div>
 						<div class="input-group">
 							<label for="release_date">Release date</label>
-							<input type="text" name="release_date" id="release_date" bind:value={releaseDate} />
+							<input
+								required
+								type="text"
+								name="release_date"
+								id="release_date"
+								bind:value={releaseDate}
+							/>
 						</div>
 						<div class="input-group">
 							<label for="director">Director</label>
-							<input type="text" name="director" id="director" bind:value={directorList} />
+							<input required type="text" name="director" id="director" bind:value={directorList} />
 						</div>
 						<div class="input-group">
 							<label for="top_case">Top cast</label>
-							<input type="text" name="top_cast" id="top_case" bind:value={topCast} />
+							<input required type="text" name="top_cast" id="top_case" bind:value={topCast} />
 						</div>
 						<div class="input-group">
 							<label for="genre">Genre</label>
-							<input type="text" name="genre" id="genre" bind:value={genreList} />
+							<input required type="text" name="genre" id="genre" bind:value={genreList} />
 						</div>
 						<div class="input-group">
 							<label for="tmdb_user_score">User Score</label>
 							<input
+								required
 								type="text"
 								name="tmdb_user_score"
 								id="tmdb_user_score"
@@ -234,11 +241,18 @@
 						</div>
 						<div class="input-group">
 							<label for="poster_path">Poster path</label>
-							<input type="text" name="poster_path" id="poster_path" bind:value={posterPath} />
+							<input
+								required
+								type="text"
+								name="poster_path"
+								id="poster_path"
+								bind:value={posterPath}
+							/>
 						</div>
 						<div class="input-group">
 							<label for="backdrop_path">Backdrop path</label>
 							<input
+								required
 								type="text"
 								name="backdrop_path"
 								id="backdrop_path"
@@ -247,7 +261,14 @@
 						</div>
 						<div class="input-group">
 							<label for="overview">Overview</label>
-							<textarea name="overview" id="overview" bind:value={overview} cols="30" rows="10" />
+							<textarea
+								required
+								name="overview"
+								id="overview"
+								bind:value={overview}
+								cols="30"
+								rows="10"
+							/>
 						</div>
 					</div>
 				</div>
