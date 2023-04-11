@@ -1,5 +1,4 @@
 import { redirect } from '@sveltejs/kit';
-// import { supabase } from '$lib/server/supabaseClient';
 
 export const load = async ({ locals: { getSession } }) => {
 	const session = await getSession();
@@ -31,10 +30,11 @@ export const actions = {
 			tmdb_user_score: data.get('tmdb_user_score'),
 			poster_path: data.get('poster_path'),
 			backdrop_path: data.get('backdrop_path'),
-			overview: data.get('overview')
+			overview: data.get('overview'),
+			sulg: data.get('slug')
 		};
 
-		const { data: newData, error } = await supabase.from('movies').insert(movieData).select();
+		// const { data: newData, error } = await supabase.from('movies').insert(movieData).select();
 
 		if (error) {
 			return error;

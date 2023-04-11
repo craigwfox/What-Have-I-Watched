@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	import { slugify } from '../../hooks.client';
 	export let sessionStatus = $page.data.session ? true : false;
 
 	let idMovieList = null;
@@ -22,6 +23,7 @@
 	let picked = '';
 	let ratingCraig = '';
 	let ratingRebecca = '';
+	$: slug = slugify(movieName);
 
 	// fetch movie list
 	function getMovieList() {
@@ -199,6 +201,10 @@
 						</div>
 					{/if}
 					<div class="inputs">
+						<div class="input-group">
+							<label for="slug">Slug</label>
+							<input required type="text" name="slug" id="slug" bind:value={slug} />
+						</div>
 						<div class="input-group">
 							<label for="imdb_id">IMDB ID</label>
 							<input required type="text" name="imdb_id" id="imdb_id" bind:value={imdbId} />

@@ -19,7 +19,7 @@
 					loading="lazy"
 				/>
 			{/if}
-			<div class="flow">
+			<a class="flow" href="/movie/{movie.name}">
 				<h2 id={movie.id}>{movie.name}</h2>
 				<ul>
 					<li>Watch date: {movie.watch_date}</li>
@@ -36,7 +36,7 @@
 						<li>Picked by: {movie.picked}</li>
 					{/if}
 				</ul>
-			</div>
+			</a>
 		</article>
 	{/each}
 </div>
