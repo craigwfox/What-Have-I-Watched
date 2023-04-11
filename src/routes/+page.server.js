@@ -1,4 +1,5 @@
 import { supabase } from '$lib/server/supabaseClient';
+import { VITE_TMDB_KEY } from '$env/static/private';
 
 export const prerender = true;
 
@@ -28,9 +29,7 @@ export async function load() {
 					const getIndex = movies.indexOf(movie);
 
 					await fetch(
-						`https://api.themoviedb.org/3/find/${imdb_id}?api_key=${
-							import.meta.env.VITE_TMDB_KEY
-						}&language=en-US&external_source=imdb_id`
+						`https://api.themoviedb.org/3/find/${imdb_id}?api_key=${VITE_TMDB_KEY}&language=en-US&external_source=imdb_id`
 					)
 						.then((response) => response.json())
 						.then((data) => {
