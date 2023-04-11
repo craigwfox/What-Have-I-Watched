@@ -29,7 +29,7 @@
 							<li>Rating: {movie.rating_craig}</li>
 						{:else}
 							<li>Craig Rating: {movie.rating_craig}</li>
-							<li>Rebecca Rating: {movie.rating_becca}</li>
+							<li>Rebecca Rating: {movie.rating_rebecca}</li>
 						{/if}
 					{/if}
 					{#if movie.picked}
