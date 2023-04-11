@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import ConditionalLink from '$lib/components/ConditionalLink.svelte';
 	export let data;
 	let { movies } = data;
 	$: ({ movies } = data);
@@ -7,6 +8,11 @@
 	movies.sort((a, b) => {
 		return new Date(b.watch_date) - new Date(a.watch_date);
 	});
+
+	function hasSlug(slug: string) {
+		if (slug) return true;
+		return false;
+	}
 </script>
 
 <div class="grid">
@@ -19,7 +25,7 @@
 					loading="lazy"
 				/>
 			{/if}
-			<a class="flow" href="/movie/{movie.name}">
+			<ConditionalLink href="/movie/{movie.slug}" isWrapped={hasSlug(movie.slug)}>
 				<h2 id={movie.id}>{movie.name}</h2>
 				<ul>
 					<li>Watch date: {movie.watch_date}</li>
@@ -36,7 +42,7 @@
 						<li>Picked by: {movie.picked}</li>
 					{/if}
 				</ul>
-			</a>
+			</ConditionalLink>
 		</article>
 	{/each}
 </div>

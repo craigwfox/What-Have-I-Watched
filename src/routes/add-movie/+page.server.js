@@ -34,7 +34,7 @@ export const actions = {
 			sulg: data.get('slug')
 		};
 
-		// const { data: newData, error } = await supabase.from('movies').insert(movieData).select();
+		const { data: newData, error } = await supabase.from('movies').insert(movieData).select();
 
 		if (error) {
 			return error;

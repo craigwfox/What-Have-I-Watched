@@ -1,12 +1,16 @@
 <script>
 	import { page } from '$app/stores';
-	import { slugify } from '../../hooks.client';
+	import { slugify } from '$lib/functions/utilities';
 	export let sessionStatus = $page.data.session ? true : false;
 
 	let idMovieList = null;
 
 	// input values
-	let movieName = '';
+	let movieName = 'Swiss army';
+	let watchDate = '2023-04-11';
+	let picked = 'Craig';
+	let ratingCraig = 'Great';
+	let ratingRebecca = 'Good';
 	let imdbId = '';
 	let tmdbId = '';
 	let releaseDate = '';
@@ -19,10 +23,6 @@
 	let overview = '';
 	let collectionId = '';
 	let collectionName = '';
-	let watchDate = '';
-	let picked = '';
-	let ratingCraig = '';
-	let ratingRebecca = '';
 	$: slug = slugify(movieName);
 
 	// fetch movie list
