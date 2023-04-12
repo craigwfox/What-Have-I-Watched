@@ -192,7 +192,13 @@
 												alt={movie.title}
 											/>
 										{/if}
-										<button type="button" on:click={() => selectMovie(movie)}>
+										<button
+											type="button"
+											on:click={() => {
+												selectMovie(movie);
+												closeMoviesModal();
+											}}
+										>
 											Use this movie
 										</button>
 									</li>

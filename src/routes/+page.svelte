@@ -1,5 +1,7 @@
 <script lang="ts">
-	import ConditionalLink from '$lib/components/ConditionalLink.svelte';
+	import MovieLink from '$lib/components/MovieLink.svelte';
+	import { object_without_properties } from 'svelte/internal';
+
 	export let data;
 	let { movies } = data;
 	$: ({ movies } = data);
@@ -9,7 +11,7 @@
 		return new Date(b.watch_date) - new Date(a.watch_date);
 	});
 
-	function hasSlug(slug: string) {
+	function checkForSlug(slug: string) {
 		if (slug) return true;
 		return false;
 	}
@@ -25,7 +27,7 @@
 					loading="lazy"
 				/>
 			{/if}
-			<ConditionalLink href="/movie/{movie.slug}" isWrapped={hasSlug(movie.slug)}>
+			<MovieLink movieData={movie}>
 				<h2 id={movie.id}>{movie.name}</h2>
 				<ul>
 					<li>Watch date: {movie.watch_date}</li>
@@ -42,7 +44,7 @@
 						<li>Picked by: {movie.picked}</li>
 					{/if}
 				</ul>
-			</ConditionalLink>
+			</MovieLink>
 		</article>
 	{/each}
 </div>

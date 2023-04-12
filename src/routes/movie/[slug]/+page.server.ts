@@ -3,12 +3,13 @@ import { error } from '@sveltejs/kit';
 
 export const prerender = true;
 
-export async function load({ params }) {
+export async function load({ url }) {
+	const movieId = url.searchParams.get('id');
 	async function getSupaMovie() {
 		return await supabase
 			.from('movies')
 			.select()
-			.eq('slug', params.slug)
+			.eq('id', movieId)
 			.then((moviesSupa) => moviesSupa);
 	}
 
