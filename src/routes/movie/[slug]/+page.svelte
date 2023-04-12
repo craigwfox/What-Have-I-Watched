@@ -1,9 +1,21 @@
 <script lang="ts">
+	// imports
+	import { page } from '$app/stores';
+	import MovieDataModal from '$lib/components/MovieDataModal.svelte';
+	import { slugify } from '$lib/functions/utilities';
 	import { formatDate, tmdbPercent, parseJson } from '$lib/functions/utilities';
 
+	// exports
+	export let sessionStatus = $page.data.session ? true : false;
 	export let data;
+
+	// variables
 	let { movie } = data;
 </script>
+
+{#if sessionStatus}
+	<MovieDataModal movieData={movie} formFunc="?/updateMovie" />
+{/if}
 
 <h1>{movie.name}</h1>
 {#if movie.genre}
