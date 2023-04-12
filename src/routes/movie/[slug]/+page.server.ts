@@ -1,9 +1,11 @@
 import { error } from '@sveltejs/kit';
-import { supabase } from '$lib/server/supabaseClient';
+import { supabase as supaClient } from '$lib/server/supabaseClient';
+
+let movieLoadData: object;
 
 export async function load({ params, url }) {
 	async function getSupaMovie() {
-		return await supabase
+		return await supaClient
 			.from('movies')
 			.select()
 			.eq('slug', params.slug)
@@ -16,6 +18,8 @@ export async function load({ params, url }) {
 	if (data?.length === 0 || supaError) {
 		throw error(404, 'Not Found');
 	} else {
+		movieLoadData = data[0];
+
 		return {
 			movie: data[0] ?? []
 		};
@@ -24,42 +28,52 @@ export async function load({ params, url }) {
 
 export const actions = {
 	updateMovie: async ({ request, locals: { supabase } }) => {
-		const data = await request.formData();
-		const movieId = data.get('movieId');
+		const formData = await request.formData();
+		const movieId = formData.get('movieId');
 
 		const movieData = {
-			name: data.get('name'),
-			watch_date: data.get('watch_date'),
-			picked: data.get('picked'),
-			rating_craig: data.get('rating_craig'),
-			rating_rebecca: data.get('rating_rebecca'),
-			imdb_id: data.get('imdb_id'),
-			tmdb_id: data.get('tmdb_id'),
-			release_date: data.get('release_date'),
-			director: JSON.stringify(data.get('director').split(',')),
-			top_cast: JSON.stringify(data.get('top_cast').split(',')),
-			genre: JSON.stringify(data.get('genre').split(',')),
-			tmdb_user_score: data.get('tmdb_user_score'),
-			poster_path: data.get('poster_path'),
-			backdrop_path: data.get('backdrop_path'),
-			overview: data.get('overview'),
-			slug: data.get('slug')
+			name: formData.get('name'),
+			watch_date: formData.get('watch_date'),
+			picked: formData.get('picked'),
+			rating_craig: formData.get('rating_craig'),
+			rating_rebecca: formData.get('rating_rebecca'),
+			imdb_id: formData.get('imdb_id'),
+			tmdb_id: formData.get('tmdb_id'),
+			release_date: formData.get('release_date'),
+			director: formData.get('director'),
+			top_cast: formData.get('top_cast'),
+			genre: formData.get('genre'),
+			tmdb_user_score: formData.get('tmdb_user_score'),
+			poster_path: formData.get('poster_path'),
+			backdrop_path: formData.get('backdrop_path'),
+			overview: formData.get('overview'),
+			slug: formData.get('slug')
 		};
 
-		const { data: newData, error: supaError } = await supabase
-			.from('movies')
-			.update({ picked: movieData.picked })
-			.eq('id', movieId)
-			.select();
+		// check if for what movie data has changed
+		const changedData = Object.keys(movieData).reduce((acc, key) => {
+			if (movieData[key] !== movieLoadData[key]) {
+				acc[key] = movieData[key];
+			}
+			return acc;
+		}, {});
 
-		if (supaError) {
-			console.log(supaError);
-			return supaError;
-		} else if (newData) {
-			console.log('new', newData);
-			return newData;
+		// check if changed data is empty
+		if (Object.keys(changedData).length != 0) {
+			const { data: newData, error: supaError } = await supabase
+				.from('movies')
+				.update(changedData)
+				.eq('id', movieId)
+				.select();
+
+			if (supaError) {
+				console.log(supaError);
+				return supaError;
+			} else if (newData) {
+				return newData;
+			}
 		} else {
-			console.log('no data');
+			return movieLoadData;
 		}
 	}
 };

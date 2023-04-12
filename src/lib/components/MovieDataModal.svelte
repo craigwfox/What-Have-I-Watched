@@ -29,15 +29,21 @@
 
 	// functions
 	function openModal() {
-		const modal = document.querySelector('dialog');
+		const modal = document.querySelector('#movie-data-modal');
 		modal.showModal();
+	}
+
+	function closeModal() {
+		const modal = document.querySelector('#movie-data-modal');
+		modal.close();
 	}
 </script>
 
 <button on:click={openModal}>Update movie</button>
-<dialog>
+<dialog id="movie-data-modal">
+	<button on:click={closeModal}>Close modal</button>
 	<h2>Current movie data</h2>
-	<form method="POST" action={formFunc}>
+	<form id="movie-data-form" method="POST" action={formFunc}>
 		<fieldset>
 			<legend>User data</legend>
 			<div class="inputs inputs--grid">
