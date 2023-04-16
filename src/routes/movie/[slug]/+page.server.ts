@@ -4,19 +4,28 @@ import { supabase as supaClient } from '$lib/server/supabaseClient';
 let movieLoadData: object;
 
 export async function load({ params, url }) {
+	const movieId = url.searchParams.get('id');
 	async function getSupaMovie() {
-		return await supaClient
-			.from('movies')
-			.select()
-			.eq('slug', params.slug)
-			.then((moviesSupa) => moviesSupa);
+		if (movieId) {
+			return await supaClient
+				.from('movies')
+				.select()
+				.eq('id', movieId)
+				.then((moviesSupa) => moviesSupa);
+		} else {
+			return await supaClient
+				.from('movies')
+				.select()
+				.eq('slug', params.slug)
+				.then((moviesSupa) => moviesSupa);
+		}
 	}
 
 	// get data from supabase
 	const { data, error: supaError } = await getSupaMovie();
 
 	if (data?.length === 0 || supaError) {
-		throw error(404, 'Not Found');
+		throw error(404, 'Movie not found');
 	} else {
 		movieLoadData = data[0];
 

@@ -1,9 +1,9 @@
 // takes a name and returns a slug
-export const slugify = (name: string) => {
-	return name
+export const slugify = (name: string, year: string) => {
+	return `${year ? year + '-' : ''}${name
 		.toLowerCase()
 		.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()']+/g, '')
-		.replace(/ /g, '-');
+		.replace(/ /g, '-')}`;
 };
 
 // convert tmdb user score to a percentage

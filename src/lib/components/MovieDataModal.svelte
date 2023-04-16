@@ -6,6 +6,7 @@
 	export let movieData: object;
 	export let formFunc: string;
 
+	// get year from release date
 	// input values
 	let movieName = movieData.name;
 	let watchDate = movieData.watch_date;
@@ -25,7 +26,10 @@
 	let collectionId = movieData.collection_id;
 	let collectionName = movieData.collection_name;
 	let movieId = movieData.id;
-	let slug = movieData.slug != null ? movieData.slug : slugify(movieName);
+	let slug =
+		movieData.slug != null
+			? movieData.slug
+			: slugify(movieName, new Date(releaseDate).getFullYear().toString());
 
 	// functions
 	function openModal() {

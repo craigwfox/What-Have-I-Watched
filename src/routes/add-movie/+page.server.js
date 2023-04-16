@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals: { getSession } }) => {
@@ -11,9 +12,6 @@ export const load = async ({ locals: { getSession } }) => {
 
 export const actions = {
 	addMovie: async ({ request, locals: { getSession, supabase } }) => {
-		// const session = await getSession();
-		// console.log(supabase);
-
 		const data = await request.formData();
 		const movieData = {
 			name: data.get('name'),
@@ -31,15 +29,35 @@ export const actions = {
 			poster_path: data.get('poster_path'),
 			backdrop_path: data.get('backdrop_path'),
 			overview: data.get('overview'),
-			sulg: data.get('slug')
+			slug: data.get('slug')
 		};
 
-		const { data: newData, error } = await supabase.from('movies').insert(movieData).select();
+		// check for existing movie
+		const { data: existingMovie, error: existingMovieError } = await supabase
+			.from('movies')
+			.select()
+			.eq('tmdb_id', movieData.tmdb_id);
 
-		if (error) {
-			return error;
-		} else {
-			return newData;
+		// if existing movie, return the existing movie
+		if (existingMovie) {
+			return { movieExists: true, existingMovie: existingMovie[0] };
+		} else if (existingMovieError) {
+			console.log(existingMovieError);
+			return existingMovieError;
+		}
+		// if no existing movie, add movie
+		else {
+			const { data: newData, error: newDataError } = await supabase
+				.from('movies')
+				.insert(movieData)
+				.select();
+
+			if (newDataError) {
+				console.log(newDataError);
+				return newDataError;
+			} else {
+				return { newMovieAdded: true, newMovie: newData[0] };
+			}
 		}
 	}
 };

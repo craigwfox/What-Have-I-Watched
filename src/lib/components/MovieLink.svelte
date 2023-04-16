@@ -8,7 +8,7 @@
 		<slot />
 	</a>
 {:else}
-	<a href="/movie/{slugify(movieData.name)}">
+	<a href="/movie/{slugify(movieData.name)}?id={movieData.id}">
 		<slot />
 	</a>
 {/if}
