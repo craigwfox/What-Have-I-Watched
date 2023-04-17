@@ -11,11 +11,11 @@
 	let idMovieList: Array<any> = [];
 
 	// input values
-	let movieName = 'Swiss army';
-	let watchDate = '2023-04-15';
-	let picked = 'Craig';
-	let ratingCraig = 'Ok';
-	let ratingRebecca = 'Ok';
+	let movieName = '';
+	let watchDate = '';
+	let picked = '';
+	let ratingCraig = '';
+	let ratingRebecca = '';
 	let imdbId = '';
 	let tmdbId = '';
 	let directorList = '';

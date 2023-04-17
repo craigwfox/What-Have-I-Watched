@@ -39,7 +39,7 @@ export const actions = {
 			.eq('tmdb_id', movieData.tmdb_id);
 
 		// if existing movie, return the existing movie
-		if (existingMovie) {
+		if (existingMovie[0]) {
 			return { movieExists: true, existingMovie: existingMovie[0] };
 		} else if (existingMovieError) {
 			console.log(existingMovieError);
