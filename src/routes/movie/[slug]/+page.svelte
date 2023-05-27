@@ -15,6 +15,8 @@
 
 {#if sessionStatus}
 	<MovieDataModal movieData={movie} formFunc="?/updateMovie" />
+{:else}
+	<a href="/login">Login</a>
 {/if}
 
 <h1>{movie.name}</h1>
