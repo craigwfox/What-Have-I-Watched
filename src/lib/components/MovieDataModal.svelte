@@ -1,10 +1,13 @@
 <script lang="ts">
 	// imports
-	import { slugify } from '$lib/functions/utilities';
+	import { slugify, formatDate, tmdbPercent, parseJson } from '$lib/functions/utilities';
 
 	// exports
 	export let movieData: object;
 	export let formFunc: string;
+
+	// variables
+	let idMovieList: Array<any> = [];
 
 	// get year from release date
 	// input values
@@ -26,10 +29,8 @@
 	let collectionId = movieData.collection_id;
 	let collectionName = movieData.collection_name;
 	let movieId = movieData.id;
-	let slug =
-		movieData.slug != null
-			? movieData.slug
-			: slugify(movieName, new Date(releaseDate).getFullYear().toString());
+	$: year = releaseDate ? new Date(releaseDate).getFullYear().toString() : '';
+	$: slug = slugify(movieName, year);
 
 	// functions
 	function openModal() {
@@ -40,6 +41,103 @@
 	function closeModal() {
 		const modal = document.querySelector('#movie-data-modal');
 		modal.close();
+	}
+	// fetch movie list
+	function getMovieList() {
+		// encode movie name
+		const encodedMovieName = encodeURI(movieName);
+
+		// fetch movie list
+		fetch(`/api/movie-search?language=en-US&query=${encodedMovieName}&page=1`)
+			.then((response) => response.json())
+			.then((data) => {
+				idMovieList = data.results;
+			});
+	}
+
+	// modal open function
+	function openMoviesModal() {
+		const modal = document.querySelector('#modal_add_movie');
+
+		if (movieName !== '') {
+			getMovieList();
+			modal.hidden = false;
+		} else {
+			alert('Please enter a movie name');
+		}
+	}
+
+	// modal close function
+	function closeMoviesModal() {
+		const modal = document.querySelector('#modal_add_movie');
+
+		modal.hidden = true;
+	}
+
+	function setMovieValues(movie) {
+		movieName = movie.title;
+		imdbId = movie.imdb_id;
+		tmdbId = movie.id;
+		releaseDate = movie.release_date;
+		tmdbUserScore = movie.vote_average;
+		overview = movie.overview;
+
+		// loop genres and push to list
+		let genreArry = [];
+		movie.genres.forEach((genre) => {
+			genreArry.push(genre.name);
+		});
+		genreList = genreArry.toString();
+
+		if (movie.poster_path) {
+			posterPath = movie.poster_path;
+		}
+		if (movie.backdrop_path) {
+			backdropPath = movie.backdrop_path;
+		}
+		if (movie.belong_to_collection) {
+			collectionId = movie.belong_to_collection.id;
+			collectionName = movie.belong_to_collection.name;
+		}
+	}
+
+	async function getMovieData(movieInput) {
+		// get single movie base data
+		await fetch(`/api/single-movie?language=en-US&id=${movieInput.id}&page=1`)
+			.then((response) => response.json())
+			.then((data) => {
+				setMovieValues(data);
+				// return data;
+			});
+
+		// get single movie credits
+		await fetch(`/api/single-movie-credits?id=${movieInput.id}`)
+			.then((response) => response.json())
+			.then((data) => {
+				// Get director list
+				let directorArry = [];
+				data.crew
+					.filter(({ job }) => job === 'Director')
+					.forEach((person) => {
+						directorArry.push(person.name);
+					});
+				directorList = directorArry.toString();
+
+				// get top cast list
+				let castArry = [];
+				data.cast
+					.filter(({ order }) => order < 9)
+					.forEach((person) => {
+						castArry.push(person.name);
+					});
+				topCast = castArry.toString();
+			});
+	}
+
+	// select id
+	function selectMovie(movieInput) {
+		// Fetch movie data
+		getMovieData(movieInput);
 	}
 </script>
 
@@ -95,8 +193,39 @@
 		<fieldset>
 			<legend>Data from TMDB</legend>
 
+			<button type="button" on:click={openMoviesModal}>Fetch data</button>
+
 			<div class="grid">
 				<input type="hidden" name="movieId" bind:value={movieId} />
+
+				{#if idMovieList && movieName !== ''}
+					<div id="modal_add_movie" class="movie-list" hidden>
+						<h3>Choose your movie</h3>
+						<ul>
+							{#each idMovieList as movie}
+								<li class="movie-item">
+									<h4>{movie.title}</h4>
+									<p>{movie.release_date}</p>
+									{#if movie.poster_path}
+										<img
+											src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+											alt={movie.title}
+										/>
+									{/if}
+									<button
+										type="button"
+										on:click={() => {
+											selectMovie(movie);
+											closeMoviesModal();
+										}}
+									>
+										Use this movie
+									</button>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
 				<div class="inputs">
 					<div class="input-group">
 						<label for="slug">Slug</label>

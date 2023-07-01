@@ -2,8 +2,7 @@
 	// imports
 	import { page } from '$app/stores';
 	import MovieDataModal from '$lib/components/MovieDataModal.svelte';
-	import { slugify } from '$lib/functions/utilities';
-	import { formatDate, tmdbPercent, parseJson } from '$lib/functions/utilities';
+	import { slugify, formatDate, tmdbPercent, parseJson } from '$lib/functions/utilities';
 
 	// exports
 	export let sessionStatus = $page.data.session ? true : false;
@@ -20,6 +19,7 @@
 {/if}
 
 <h1>{movie.name}</h1>
+
 {#if movie.genre}
 	<p>Genres</p>
 	<ul>
@@ -70,7 +70,7 @@
 	<p>Release date: {formatDate(movie.release_date)}</p>
 {/if}
 
-{#if movie.genre}
+{#if movie.director}
 	<h3>Directors</h3>
 	<ul>
 		{#each parseJson(movie.director) as director}
@@ -79,7 +79,7 @@
 	</ul>
 {/if}
 
-{#if movie.genre}
+{#if movie.top_cast}
 	<h3>Top Cast</h3>
 	<ul>
 		{#each parseJson(movie.top_cast) as cast}
