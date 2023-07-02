@@ -45,7 +45,7 @@
 	// fetch movie list
 	function getMovieList() {
 		// encode movie name
-		const encodedMovieName = encodeURI(movieName);
+		const encodedMovieName = encodeURI(movieName.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()']/g, ''));
 
 		// fetch movie list
 		fetch(`/api/movie-search?language=en-US&query=${encodedMovieName}&page=1`)
@@ -194,6 +194,7 @@
 			<legend>Data from TMDB</legend>
 
 			<button type="button" on:click={openMoviesModal}>Fetch data</button>
+			<button>Update data</button>
 
 			<div class="grid">
 				<input type="hidden" name="movieId" bind:value={movieId} />
@@ -305,8 +306,6 @@
 				</div>
 			</div>
 		</fieldset>
-
-		<button>Update movie</button>
 	</form>
 </dialog>
 
