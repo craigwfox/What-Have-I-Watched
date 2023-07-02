@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { supabase as supaClient } from '$lib/server/supabaseClient';
+import { redirect } from '@sveltejs/kit';
 
 let movieLoadData: object;
 
@@ -39,6 +40,7 @@ export const actions = {
 	updateMovie: async ({ request, locals: { supabase } }) => {
 		const formData = await request.formData();
 		const movieId = formData.get('movieId');
+		const slug_old = formData.get('slug_old');
 
 		const movieData = {
 			name: formData.get('name'),
@@ -79,7 +81,11 @@ export const actions = {
 				console.log(supaError);
 				return supaError;
 			} else if (newData) {
-				return newData;
+				if (newData[0].slug !== slug_old) {
+					throw redirect(303, `/movie/${newData[0].slug}`);
+				} else {
+					return newData;
+				}
 			}
 		} else {
 			return movieLoadData;

@@ -29,6 +29,7 @@
 	let collectionId = movieData.collection_id;
 	let collectionName = movieData.collection_name;
 	let movieId = movieData.id;
+	let slug_old = window.location.pathname.split('/')[2];
 	$: year = releaseDate ? new Date(releaseDate).getFullYear().toString() : '';
 	$: slug = slugify(movieName, year);
 
@@ -303,6 +304,7 @@
 							rows="10"
 						/>
 					</div>
+					<input type="hidden" name={slug_old} />
 				</div>
 			</div>
 		</fieldset>
@@ -365,6 +367,7 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-areas: 'inputs list';
+		align-items: start;
 	}
 
 	.grid > .inputs {
