@@ -1,4 +1,7 @@
-<script>
+<script lang="ts">
+	import MovieLink from '$lib/components/MovieLink.svelte';
+	import { object_without_properties } from 'svelte/internal';
+
 	export let data;
 	let { movies } = data;
 	$: ({ movies } = data);
@@ -7,6 +10,11 @@
 	movies.sort((a, b) => {
 		return new Date(b.watch_date) - new Date(a.watch_date);
 	});
+
+	function checkForSlug(slug: string) {
+		if (slug) return true;
+		return false;
+	}
 </script>
 
 <div class="grid">
@@ -19,7 +27,7 @@
 					loading="lazy"
 				/>
 			{/if}
-			<div class="flow">
+			<MovieLink movieData={movie}>
 				<h2 id={movie.id}>{movie.name}</h2>
 				<ul>
 					<li>Watch date: {movie.watch_date}</li>
@@ -36,7 +44,7 @@
 						<li>Picked by: {movie.picked}</li>
 					{/if}
 				</ul>
-			</div>
+			</MovieLink>
 		</article>
 	{/each}
 </div>

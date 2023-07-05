@@ -1,14 +1,23 @@
-<script>
+<script lang="ts">
+	// imports
 	import { page } from '$app/stores';
-	export let sessionStatus = $page.data.session ? true : false;
+	import { slugify } from '$lib/functions/utilities';
 
-	let idMovieList = null;
+	// exports
+	export let sessionStatus = $page.data.session ? true : false;
+	export let form;
+
+	// variables
+	let idMovieList: Array<any> = [];
 
 	// input values
 	let movieName = '';
+	let watchDate = '';
+	let picked = '';
+	let ratingCraig = '';
+	let ratingRebecca = '';
 	let imdbId = '';
 	let tmdbId = '';
-	let releaseDate = '';
 	let directorList = '';
 	let topCast = '';
 	let genreList = '';
@@ -18,10 +27,9 @@
 	let overview = '';
 	let collectionId = '';
 	let collectionName = '';
-	let watchDate = '';
-	let picked = '';
-	let ratingCraig = '';
-	let ratingRebecca = '';
+	let releaseDate = '';
+	$: year = releaseDate ? new Date(releaseDate).getFullYear().toString() : '';
+	$: slug = slugify(movieName, year);
 
 	// fetch movie list
 	function getMovieList() {
@@ -125,157 +133,195 @@
 {#if sessionStatus}
 	<section aria-labelledby="title-add-movie">
 		<h2 id="title-add-movie">Add a new movie</h2>
-		<form method="POST" action="?/addMovie">
-			<fieldset>
-				<legend>User data</legend>
-				<div class="inputs inputs--grid">
-					<div class="input-group">
-						<label for="name">Name</label>
-						<input type="text" name="name" id="name" bind:value={movieName} required />
-					</div>
-					<div class="input-group">
-						<label for="watch_date">Watch date</label>
-						<input type="date" name="watch_date" id="watch_date" bind:value={watchDate} required />
-					</div>
-					<div class="input-group">
-						<label for="picked">Picked</label>
-						<select name="picked" id="picked" bind:value={picked} required>
-							<option value="NULL">None</option>
-							<option value="Rebecca">Rebecca</option>
-							<option value="Craig">Craig</option>
-						</select>
-					</div>
-					<div class="input-group">
-						<label for="rating_craig">Craig's rating</label>
-						<select name="rating_craig" id="rating_craig" bind:value={ratingCraig} required>
-							<option value="Great">Great</option>
-							<option value="Good">Good</option>
-							<option value="Ok">Ok</option>
-							<option value="Bad">Bad</option>
-							<option value="The fuck">The fuck</option>
-							<option value="Absolute trash">Absolute trash</option>
-						</select>
-					</div>
-					<div class="input-group">
-						<label for="rating_rebecca">Rebecca's rating</label>
-						<select name="rating_rebecca" id="rating_rebecca" bind:value={ratingRebecca} required>
-							<option value="Great">Great</option>
-							<option value="Good">Good</option>
-							<option value="Ok">Ok</option>
-							<option value="Bad">Bad</option>
-							<option value="The fuck">The fuck</option>
-							<option value="Absolute trash">Absolute trash</option>
-						</select>
-					</div>
-				</div>
-			</fieldset>
-
-			<fieldset>
-				<legend>Data from TMDB</legend>
-
-				<button type="button" on:click={openMoviesModal}>Fetch data</button>
-
-				<div class="grid">
-					{#if idMovieList && movieName !== ''}
-						<div id="modal_add_movie" class="movie-list" hidden>
-							<h3>Choose your movie</h3>
-							<ul>
-								{#each idMovieList as movie}
-									<li class="movie-item">
-										<h4>{movie.title}</h4>
-										<p>{movie.release_date}</p>
-										{#if movie.poster_path}
-											<img
-												src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-												alt={movie.title}
-											/>
-										{/if}
-										<button type="button" on:click={() => selectMovie(movie)}>
-											Use this movie
-										</button>
-									</li>
-								{/each}
-							</ul>
-						</div>
-					{/if}
-					<div class="inputs">
+		{#if form?.movieExists}
+			<h3>Movie already exists</h3>
+			<p>
+				View existing entry for <a href={'/movie/' + form?.existingMovie.slug}
+					>{form?.existingMovie.name}</a
+				>
+				<br />Try adding <a href="/add-movie">another movie</a>
+			</p>
+		{:else if form?.newMovieAdded}
+			<h3>Movie added</h3>
+			<p>
+				View your new entry for <a href={'/movie/' + form?.newMovie.slug}>{form?.newMovie.name}</a>
+				<br />Or add <a href="/add-movie">another movie</a>
+			</p>
+		{:else}
+			<form method="POST" action="?/addMovie">
+				<fieldset>
+					<legend>User data</legend>
+					<div class="inputs inputs--grid">
 						<div class="input-group">
-							<label for="imdb_id">IMDB ID</label>
-							<input required type="text" name="imdb_id" id="imdb_id" bind:value={imdbId} />
+							<label for="name">Name</label>
+							<input type="text" name="name" id="name" bind:value={movieName} required />
 						</div>
 						<div class="input-group">
-							<label for="tmdb_id">TMDB ID</label>
-							<input required type="text" name="tmdb_id" id="tmdb_id" bind:value={tmdbId} />
-						</div>
-						<div class="input-group">
-							<label for="release_date">Release date</label>
+							<label for="watch_date">Watch date</label>
 							<input
+								type="date"
+								name="watch_date"
+								id="watch_date"
+								bind:value={watchDate}
 								required
-								type="text"
-								name="release_date"
-								id="release_date"
-								bind:value={releaseDate}
 							/>
 						</div>
 						<div class="input-group">
-							<label for="director">Director</label>
-							<input required type="text" name="director" id="director" bind:value={directorList} />
+							<label for="picked">Picked</label>
+							<select name="picked" id="picked" bind:value={picked} required>
+								<option value="NULL">None</option>
+								<option value="Rebecca">Rebecca</option>
+								<option value="Craig">Craig</option>
+							</select>
 						</div>
 						<div class="input-group">
-							<label for="top_case">Top cast</label>
-							<input required type="text" name="top_cast" id="top_case" bind:value={topCast} />
+							<label for="rating_craig">Craig's rating</label>
+							<select name="rating_craig" id="rating_craig" bind:value={ratingCraig} required>
+								<option value="Great">Great</option>
+								<option value="Good">Good</option>
+								<option value="Ok">Ok</option>
+								<option value="Bad">Bad</option>
+								<option value="The fuck">The fuck</option>
+								<option value="Absolute trash">Absolute trash</option>
+							</select>
 						</div>
 						<div class="input-group">
-							<label for="genre">Genre</label>
-							<input required type="text" name="genre" id="genre" bind:value={genreList} />
-						</div>
-						<div class="input-group">
-							<label for="tmdb_user_score">User Score</label>
-							<input
-								required
-								type="text"
-								name="tmdb_user_score"
-								id="tmdb_user_score"
-								bind:value={tmdbUserScore}
-							/>
-						</div>
-						<div class="input-group">
-							<label for="poster_path">Poster path</label>
-							<input
-								required
-								type="text"
-								name="poster_path"
-								id="poster_path"
-								bind:value={posterPath}
-							/>
-						</div>
-						<div class="input-group">
-							<label for="backdrop_path">Backdrop path</label>
-							<input
-								required
-								type="text"
-								name="backdrop_path"
-								id="backdrop_path"
-								bind:value={backdropPath}
-							/>
-						</div>
-						<div class="input-group">
-							<label for="overview">Overview</label>
-							<textarea
-								required
-								name="overview"
-								id="overview"
-								bind:value={overview}
-								cols="30"
-								rows="10"
-							/>
+							<label for="rating_rebecca">Rebecca's rating</label>
+							<select name="rating_rebecca" id="rating_rebecca" bind:value={ratingRebecca} required>
+								<option value="Great">Great</option>
+								<option value="Good">Good</option>
+								<option value="Ok">Ok</option>
+								<option value="Bad">Bad</option>
+								<option value="The fuck">The fuck</option>
+								<option value="Absolute trash">Absolute trash</option>
+							</select>
 						</div>
 					</div>
-				</div>
-			</fieldset>
+				</fieldset>
 
-			<button>Add movie</button>
-		</form>
+				<fieldset>
+					<legend>Data from TMDB</legend>
+
+					<button type="button" on:click={openMoviesModal}>Fetch data</button>
+
+					<div class="grid">
+						{#if idMovieList && movieName !== ''}
+							<div id="modal_add_movie" class="movie-list" hidden>
+								<h3>Choose your movie</h3>
+								<ul>
+									{#each idMovieList as movie}
+										<li class="movie-item">
+											<h4>{movie.title}</h4>
+											<p>{movie.release_date}</p>
+											{#if movie.poster_path}
+												<img
+													src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+													alt={movie.title}
+												/>
+											{/if}
+											<button
+												type="button"
+												on:click={() => {
+													selectMovie(movie);
+													closeMoviesModal();
+												}}
+											>
+												Use this movie
+											</button>
+										</li>
+									{/each}
+								</ul>
+							</div>
+						{/if}
+						<div class="inputs">
+							<div class="input-group">
+								<label for="slug">Slug</label>
+								<input required type="text" name="slug" id="slug" bind:value={slug} />
+							</div>
+							<div class="input-group">
+								<label for="imdb_id">IMDB ID</label>
+								<input required type="text" name="imdb_id" id="imdb_id" bind:value={imdbId} />
+							</div>
+							<div class="input-group">
+								<label for="tmdb_id">TMDB ID</label>
+								<input required type="text" name="tmdb_id" id="tmdb_id" bind:value={tmdbId} />
+							</div>
+							<div class="input-group">
+								<label for="release_date">Release date</label>
+								<input
+									required
+									type="text"
+									name="release_date"
+									id="release_date"
+									bind:value={releaseDate}
+								/>
+							</div>
+							<div class="input-group">
+								<label for="director">Director</label>
+								<input
+									required
+									type="text"
+									name="director"
+									id="director"
+									bind:value={directorList}
+								/>
+							</div>
+							<div class="input-group">
+								<label for="top_case">Top cast</label>
+								<input required type="text" name="top_cast" id="top_case" bind:value={topCast} />
+							</div>
+							<div class="input-group">
+								<label for="genre">Genre</label>
+								<input required type="text" name="genre" id="genre" bind:value={genreList} />
+							</div>
+							<div class="input-group">
+								<label for="tmdb_user_score">User Score</label>
+								<input
+									required
+									type="text"
+									name="tmdb_user_score"
+									id="tmdb_user_score"
+									bind:value={tmdbUserScore}
+								/>
+							</div>
+							<div class="input-group">
+								<label for="poster_path">Poster path</label>
+								<input
+									required
+									type="text"
+									name="poster_path"
+									id="poster_path"
+									bind:value={posterPath}
+								/>
+							</div>
+							<div class="input-group">
+								<label for="backdrop_path">Backdrop path</label>
+								<input
+									required
+									type="text"
+									name="backdrop_path"
+									id="backdrop_path"
+									bind:value={backdropPath}
+								/>
+							</div>
+							<div class="input-group">
+								<label for="overview">Overview</label>
+								<textarea
+									required
+									name="overview"
+									id="overview"
+									bind:value={overview}
+									cols="30"
+									rows="10"
+								/>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+				<button>Add movie</button>
+			</form>
+		{/if}
 	</section>
 {/if}
 
@@ -335,6 +381,7 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-areas: 'inputs list';
+		align-items: start;
 	}
 
 	.grid > .inputs {
@@ -342,69 +389,39 @@
 	}
 
 	.movie-list {
-		grid-area: list;
-
-		&[hidden] {
-			display: none;
-		}
-
 		> ul {
-			max-height: 40rem;
-			overflow-y: auto;
+			display: grid;
+			gap: 2rem;
 
-			margin: 0;
 			padding: 0;
+
 			list-style: none;
 		}
 	}
 
 	.movie-item {
 		display: grid;
-		grid-template-areas: 'title poster' 'date poster' 'button poster' 'blank poster';
-		grid-template-columns: repeat(2, 1fr);
-		place-items: start;
+		grid-template-areas: 'image title' 'image year' 'image button' 'image blank';
+		grid-template-columns: 1fr 2fr;
+		grid-template-rows: repeat(4, auto);
+		gap: 0.2rem 1.5rem;
+	}
 
-		+ .movie-item {
-			margin-block-start: 1rem;
-			padding-block-start: 1rem;
-			border-top: 0.15rem solid hsl(0, 0%, 50%);
-		}
+	.movie-item img {
+		grid-area: image;
+	}
 
-		> h4 {
-			grid-area: title;
-		}
+	.movie-item h4 {
+		grid-area: title;
+	}
 
-		> p {
-			grid-area: date;
-		}
+	.movie-item p {
+		grid-area: year;
+	}
 
-		> img {
-			grid-area: poster;
-		}
+	.movie-item button {
+		grid-area: button;
 
-		> button {
-			grid-area: button;
-
-			padding: 0.25rem 0.5rem;
-
-			background: slateblue;
-			border: 0.15rem solid slateblue;
-			border-radius: 0.5rem;
-
-			cursor: pointer;
-			color: white;
-			font-size: 1rem;
-			line-height: 1.5;
-
-			transition: all 0.2s ease-in-out;
-
-			&:hover,
-			&:focus {
-				background-color: lightblue;
-				border-color: hsl(240, 100%, 50%);
-
-				color: #2e2e2e;
-			}
-		}
+		justify-self: start;
 	}
 </style>

@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { supabase } from '$lib/server/supabaseClient';
+import { VITE_LOGIN_REDIRECT } from '$env/static/private';
 
 export const actions = {
 	login: async ({ request }) => {
@@ -10,7 +11,7 @@ export const actions = {
 			const { data, error } = await supabase.auth.signInWithOtp({
 				email: userEmail,
 				options: {
-					emailRedirectTo: 'http://127.0.0.1:5173/add-movie'
+					emailRedirectTo: `${VITE_LOGIN_REDIRECT}/add-movie`
 				}
 			});
 		}
