@@ -57,7 +57,10 @@
 		background: hsl(0 0% 20% / 0.8);
 	}
 
-	> div {
+	> div,
+	> a {
+		display: block;
+
 		position: relative;
 		z-index: 4;
 
@@ -75,5 +78,9 @@
 
 			list-style: none;
 		}
+	}
+
+	> a {
+		text-decoration: none;
 	}
 }
