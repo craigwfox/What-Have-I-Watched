@@ -5,6 +5,7 @@
 	// exports
 	export let movieData: object;
 	export let formFunc: string;
+	export let slug_current: string;
 
 	// variables
 	let idMovieList: Array<any> = [];
@@ -29,7 +30,6 @@
 	let collectionId = movieData.collection_id;
 	let collectionName = movieData.collection_name;
 	let movieId = movieData.id;
-	let slug_old = window.location.pathname.split('/')[2];
 	$: year = releaseDate ? new Date(releaseDate).getFullYear().toString() : '';
 	$: slug = slugify(movieName, year);
 
@@ -208,12 +208,6 @@
 								<li class="movie-item">
 									<h4>{movie.title}</h4>
 									<p>{movie.release_date}</p>
-									{#if movie.poster_path}
-										<img
-											src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-											alt={movie.title}
-										/>
-									{/if}
 									<button
 										type="button"
 										on:click={() => {
@@ -223,6 +217,12 @@
 									>
 										Use this movie
 									</button>
+									{#if movie.poster_path}
+										<img
+											src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+											alt={movie.title}
+										/>
+									{/if}
 								</li>
 							{/each}
 						</ul>
@@ -304,7 +304,7 @@
 							rows="10"
 						/>
 					</div>
-					<input type="hidden" name={slug_old} />
+					<input type="hidden" name={slug_current} />
 				</div>
 			</div>
 		</fieldset>
@@ -372,5 +372,40 @@
 
 	.grid > .inputs {
 		grid-area: inputs;
+	}
+
+	.movie-list > ul {
+		padding: 0;
+		list-style: none;
+	}
+
+	.movie-list > ul > li + li {
+		margin-block-start: 2rem;
+	}
+
+	.movie-item {
+		display: grid;
+		grid-template-areas: 'image title' 'image date' 'image button';
+		grid-template-rows: repeat(2, auto) 1fr;
+		grid-template-columns: auto 1fr;
+		gap: 0.7rem 1.5rem;
+		place-items: start;
+	}
+
+	.movie-item > h4 {
+		grid-area: title;
+	}
+
+	.movie-item > p {
+		grid-area: date;
+	}
+
+	.movie-item > button {
+		grid-area: button;
+	}
+
+	.movie-item > img {
+		max-height: 10rem;
+		grid-area: image;
 	}
 </style>

@@ -40,7 +40,7 @@ export const actions = {
 	updateMovie: async ({ request, locals: { supabase } }) => {
 		const formData = await request.formData();
 		const movieId = formData.get('movieId');
-		const slug_old = formData.get('slug_old');
+		const slug_current = formData.get('slug_current');
 
 		const movieData = {
 			name: formData.get('name'),
@@ -81,7 +81,7 @@ export const actions = {
 				console.log(supaError);
 				return supaError;
 			} else if (newData) {
-				if (newData[0].slug !== slug_old) {
+				if (newData[0].slug !== slug_current) {
 					throw redirect(303, `/movie/${newData[0].slug}`);
 				} else {
 					return newData;
