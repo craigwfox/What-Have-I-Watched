@@ -5,44 +5,56 @@
 	// exports
 	export let movieData: object;
 	export let formFunc: string;
-	export let slug_current: string;
+	export let slugCurrent: string;
+	export let editType: string;
 
 	// variables
 	let idMovieList: Array<any> = [];
 
-	// get year from release date
-	// input values
-	let movieName = movieData.name;
-	let watchDate = movieData.watch_date;
-	let picked = movieData.picked;
-	let ratingCraig = movieData.rating_craig;
-	let ratingRebecca = movieData.rating_rebecca;
-	let imdbId = movieData.imdb_id;
-	let tmdbId = movieData.tmdb_id;
-	let releaseDate = movieData.release_date;
-	let directorList = movieData.director;
-	let topCast = movieData.top_cast;
-	let genreList = movieData.genre;
-	let tmdbUserScore = movieData.tmdb_user_score;
-	let posterPath = movieData.poster_path;
-	let backdropPath = movieData.backdrop_path;
-	let overview = movieData.overview;
-	let collectionId = movieData.collection_id;
-	let collectionName = movieData.collection_name;
-	let movieId = movieData.id;
+	let movieName = '';
+	let watchDate = '';
+	let picked = '';
+	let ratingCraig = '';
+	let ratingRebecca = '';
+	let imdbId = '';
+	let tmdbId = '';
+	let releaseDate = '';
+	let directorList = '';
+	let topCast = '';
+	let genreList = '';
+	let tmdbUserScore = '';
+	let posterPath = '';
+	let backdropPath = '';
+	let overview = '';
+	let collectionId = '';
+	let collectionName = '';
+	let movieId = '';
 	$: year = releaseDate ? new Date(releaseDate).getFullYear().toString() : '';
 	$: slug = slugify(movieName, year);
 
-	// functions
-	function openModal() {
-		const modal = document.querySelector('#movie-data-modal');
-		modal.showModal();
+	// get year from release date
+	// input values
+	if (editType === 'update') {
+		movieName = movieData.name;
+		watchDate = movieData.watch_date;
+		picked = movieData.picked;
+		ratingCraig = movieData.rating_craig;
+		ratingRebecca = movieData.rating_rebecca;
+		imdbId = movieData.imdb_id;
+		tmdbId = movieData.tmdb_id;
+		releaseDate = movieData.release_date;
+		directorList = movieData.director;
+		topCast = movieData.top_cast;
+		genreList = movieData.genre;
+		tmdbUserScore = movieData.tmdb_user_score;
+		posterPath = movieData.poster_path;
+		backdropPath = movieData.backdrop_path;
+		overview = movieData.overview;
+		collectionId = movieData.collection_id;
+		collectionName = movieData.collection_name;
+		movieId = movieData.id;
 	}
 
-	function closeModal() {
-		const modal = document.querySelector('#movie-data-modal');
-		modal.close();
-	}
 	// fetch movie list
 	function getMovieList() {
 		// encode movie name
@@ -142,10 +154,14 @@
 	}
 </script>
 
-<button on:click={openModal}>Update movie</button>
-<dialog id="movie-data-modal">
-	<button on:click={closeModal}>Close modal</button>
-	<h2>Current movie data</h2>
+<div id="movie-data-modal">
+	<h2>
+		{#if editType === 'update'}
+			Current movie information
+		{:else}
+			Movie information
+		{/if}
+	</h2>
 	<form id="movie-data-form" method="POST" action={formFunc}>
 		<fieldset>
 			<legend>User data</legend>
@@ -194,8 +210,14 @@
 		<fieldset>
 			<legend>Data from TMDB</legend>
 
-			<button type="button" on:click={openMoviesModal}>Fetch data</button>
-			<button>Update data</button>
+			<button type="button" on:click={openMoviesModal}>Fetch movies</button>
+			<button>
+				{#if editType === 'update'}
+					Update movie
+				{:else}
+					Add new movie
+				{/if}
+			</button>
 
 			<div class="grid">
 				<input type="hidden" name="movieId" bind:value={movieId} />
@@ -304,108 +326,9 @@
 							rows="10"
 						/>
 					</div>
-					<input type="hidden" name={slug_current} />
+					<input type="hidden" name={slugCurrent} />
 				</div>
 			</div>
 		</fieldset>
 	</form>
-</dialog>
-
-<style>
-	fieldset {
-		border: 0.3rem solid salmon;
-
-		+ fieldset {
-			margin-block-start: 2rem;
-		}
-
-		> legend {
-			font-size: 2rem;
-			font-weight: 700;
-		}
-	}
-
-	.inputs {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.inputs--grid {
-		grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-
-		*:first-child {
-			grid-column: 1 / -1;
-		}
-	}
-
-	.input-group {
-		display: grid;
-		gap: 0.2rem;
-
-		> label {
-			font-weight: 600;
-		}
-
-		> input,
-		> select {
-			height: 2.5rem;
-
-			display: block;
-
-			padding: 0.2rem 0.5rem;
-
-			border: 1px solid hsl(0, 0%, 70%);
-			border-radius: 0.2rem;
-			background: hsl(0, 0%, 100%);
-
-			font-size: 1.2rem;
-			line-height: 1.5;
-		}
-	}
-
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-areas: 'inputs list';
-		align-items: start;
-	}
-
-	.grid > .inputs {
-		grid-area: inputs;
-	}
-
-	.movie-list > ul {
-		padding: 0;
-		list-style: none;
-	}
-
-	.movie-list > ul > li + li {
-		margin-block-start: 2rem;
-	}
-
-	.movie-item {
-		display: grid;
-		grid-template-areas: 'image title' 'image date' 'image button';
-		grid-template-rows: repeat(2, auto) 1fr;
-		grid-template-columns: auto 1fr;
-		gap: 0.7rem 1.5rem;
-		place-items: start;
-	}
-
-	.movie-item > h4 {
-		grid-area: title;
-	}
-
-	.movie-item > p {
-		grid-area: date;
-	}
-
-	.movie-item > button {
-		grid-area: button;
-	}
-
-	.movie-item > img {
-		max-height: 10rem;
-		grid-area: image;
-	}
-</style>
+</div>

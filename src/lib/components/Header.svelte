@@ -5,14 +5,3 @@
 		<a href="/add-movie">Add movie</a>
 	</nav>
 </header>
-
-<style>
-	a {
-		color: white;
-
-		&:hover,
-		&:focus {
-			color: salmon;
-		}
-	}
-</style>

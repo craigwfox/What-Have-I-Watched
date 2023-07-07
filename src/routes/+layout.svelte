@@ -28,6 +28,3 @@
 <footer>
 	<p>By Craig Fox</p>
 </footer>
-
-<style>
-</style>

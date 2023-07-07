@@ -1,7 +1,7 @@
 <script lang="ts">
 	// imports
 	import { page } from '$app/stores';
-	import MovieDataModal from '$lib/components/MovieDataModal.svelte';
+	import MovieForm from '$lib/components/MovieForm.svelte';
 	import { slugify, formatDate, tmdbPercent, parseJson } from '$lib/functions/utilities';
 
 	// exports
@@ -15,7 +15,7 @@
 </script>
 
 {#if sessionStatus}
-	<MovieDataModal movieData={movie} slug_current={slug} formFunc="?/updateMovie" />
+	<MovieForm editType="update" movieData={movie} slugCurrent={slug} formFunc="?/updateMovie" />
 {:else}
 	<a href="/login">Login</a>
 {/if}
