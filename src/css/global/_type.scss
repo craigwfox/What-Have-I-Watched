@@ -9,6 +9,30 @@ b {
 	font-weight: 700;
 }
 
+button {
+	cursor: pointer;
+}
+
+.btn {
+	--btn-color: var(--clr-primary);
+
+	padding: 0 var(--space-2xs);
+
+	border: 2px solid var(--btn-color);
+	background: var(--btn-color);
+	border-radius: 0.5rem;
+
+	color: var(--clr-white);
+
+	&-secondary {
+		--btn-color: var(--clr-secondary);
+	}
+
+	+ .btn {
+		margin-inline-start: var(--space-2xs);
+	}
+}
+
 // ====---------------====
 // Title
 // ====---------------====

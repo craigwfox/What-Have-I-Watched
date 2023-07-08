@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { redirect } from '@sveltejs/kit';
 
 	export let data;
 	export let sessionStatus = $page.data.session ? true : false;
@@ -20,8 +21,12 @@
 	});
 
 	async function signOut() {
-		const { error } = await supabase.auth.signOut();
-		invalidate('supabase:auth');
+		async function supaOut() {
+			const { error } = await supabase.auth.signOut();
+		}
+		await supaOut().then(() => {
+			window.location.href = '/';
+		});
 	}
 </script>
 
@@ -30,7 +35,7 @@
 	<nav class="sh-nav">
 		{#if sessionStatus}
 			<a href="/add-movie">Add movie</a>
-			<button on:click={signOut}>Sign out</button>
+			<button on:click={signOut}>Log off</button>
 		{:else}
 			<a href="/login">Login</a>
 		{/if}
