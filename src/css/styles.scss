@@ -5,10 +5,14 @@
 // ------------------------------------------ */
 
 /* Globals */
-@import './global/variables.pcss';
-@import './global/reset.pcss';
-@import './global/base.pcss';
-@import './global/type.pcss';
+@import './global/variables';
+@import './global/reset';
+@import './global/base';
+@import './global/type';
+
+/* Blocks */
+@import './blocks/header';
 
 /* Components */
-@import './components/movie-card.pcss';
+@import './components/movie-card';
+@import './components/movie-form';

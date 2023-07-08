@@ -16,9 +16,9 @@
 
 {#if sessionStatus}
 	<section aria-labelledby="title-add-movie">
-		<h2 id="title-add-movie">Add a new movie</h2>
+		<h1 id="title-add-movie">Add a new movie</h1>
 		{#if form?.movieExists}
-			<h3>Movie already exists</h3>
+			<h2>Movie already exists</h2>
 			<p>
 				View existing entry for <a href={'/movie/' + form?.existingMovie.slug}
 					>{form?.existingMovie.name}</a
@@ -26,7 +26,7 @@
 				<br />Try adding <a href="/add-movie">another movie</a>
 			</p>
 		{:else if form?.newMovieAdded}
-			<h3>Movie added</h3>
+			<h2>Movie added</h2>
 			<p>
 				View your new entry for <a href={'/movie/' + form?.newMovie.slug}>{form?.newMovie.name}</a>
 				<br />Or add <a href="/add-movie">another movie</a>

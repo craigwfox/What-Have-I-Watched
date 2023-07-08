@@ -210,8 +210,10 @@
 		<fieldset>
 			<legend>Data from TMDB</legend>
 
-			<button type="button" on:click={openMoviesModal}>Fetch movies</button>
-			<button>
+			<button class="btn btn-secondary" type="button" on:click={openMoviesModal}
+				>Fetch movies</button
+			>
+			<button class="btn btn-primary">
 				{#if editType === 'update'}
 					Update movie
 				{:else}

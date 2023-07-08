@@ -1,0 +1,142 @@
+/* ------------------------------------------
+======---------------------------------======
+	Header
+======---------------------------------======
+------------------------------------------ */
+
+#site-header {
+	--cp-angle: 5%;
+	--clip-path: polygon(
+		0 var(--cp-angle),
+		calc(var(--cp-angle) / 2) 0%,
+		calc(100% - (var(--cp-angle)) / 2) 0,
+		100% var(--cp-angle),
+		calc(100% - var(--cp-angle)) calc(100% - (var(--cp-angle)) / 1),
+		calc(100% - (var(--cp-angle) * 1.5)) 100%,
+		calc((var(--cp-angle) * 1.5)) 100%,
+		var(--cp-angle) calc(100% - (var(--cp-angle)) / 1)
+	);
+
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-xs) var(--space-xl);
+
+	position: relative;
+
+	padding: var(--space-xl) var(--wrapper-main) var(--space-xl);
+
+	background: var(--clr-dark);
+
+	color: var(--clr-primary);
+
+	> * {
+		position: relative;
+		z-index: 10;
+	}
+
+	&::before {
+		content: '';
+
+		position: absolute;
+		inset: calc(var(--space-s) + 1.5rem);
+		z-index: 2;
+
+		// background-color: #060142;
+		// background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='100' y1='33' x2='100' y2='-3'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='100' y1='135' x2='100' y2='97'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='%23050041' fill-opacity='0.6'%3E%3Crect x='100' width='100' height='100'/%3E%3Crect y='100' width='100' height='100'/%3E%3C/g%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='url(%23a)' points='100 30 0 0 200 0'/%3E%3Cpolygon fill='url(%23b)' points='100 100 0 130 0 100 200 100 200 130'/%3E%3C/g%3E%3C/svg%3E");
+
+		// background-color: #060142;
+		// background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 100 60'%3E%3Cg %3E%3Crect fill='%23060142' width='11' height='11'/%3E%3Crect fill='%230b0142' x='10' width='11' height='11'/%3E%3Crect fill='%230f0142' y='10' width='11' height='11'/%3E%3Crect fill='%23120141' x='20' width='11' height='11'/%3E%3Crect fill='%23150141' x='10' y='10' width='11' height='11'/%3E%3Crect fill='%23180141' y='20' width='11' height='11'/%3E%3Crect fill='%231b0141' x='30' width='11' height='11'/%3E%3Crect fill='%231e0040' x='20' y='10' width='11' height='11'/%3E%3Crect fill='%23200040' x='10' y='20' width='11' height='11'/%3E%3Crect fill='%23220040' y='30' width='11' height='11'/%3E%3Crect fill='%23240040' x='40' width='11' height='11'/%3E%3Crect fill='%2327003f' x='30' y='10' width='11' height='11'/%3E%3Crect fill='%2329003f' x='20' y='20' width='11' height='11'/%3E%3Crect fill='%232b003f' x='10' y='30' width='11' height='11'/%3E%3Crect fill='%232d003e' y='40' width='11' height='11'/%3E%3Crect fill='%232f003e' x='50' width='11' height='11'/%3E%3Crect fill='%2330003d' x='40' y='10' width='11' height='11'/%3E%3Crect fill='%2332003d' x='30' y='20' width='11' height='11'/%3E%3Crect fill='%2334003d' x='20' y='30' width='11' height='11'/%3E%3Crect fill='%2336003c' x='10' y='40' width='11' height='11'/%3E%3Crect fill='%2337003c' y='50' width='11' height='11'/%3E%3Crect fill='%2339003b' x='60' width='11' height='11'/%3E%3Crect fill='%233b003b' x='50' y='10' width='11' height='11'/%3E%3Crect fill='%233c003a' x='40' y='20' width='11' height='11'/%3E%3Crect fill='%233e003a' x='30' y='30' width='11' height='11'/%3E%3Crect fill='%233f0039' x='20' y='40' width='11' height='11'/%3E%3Crect fill='%23410039' x='10' y='50' width='11' height='11'/%3E%3Crect fill='%23420038' x='70' width='11' height='11'/%3E%3Crect fill='%23440038' x='60' y='10' width='11' height='11'/%3E%3Crect fill='%23450037' x='50' y='20' width='11' height='11'/%3E%3Crect fill='%23460037' x='40' y='30' width='11' height='11'/%3E%3Crect fill='%23480036' x='30' y='40' width='11' height='11'/%3E%3Crect fill='%23490036' x='20' y='50' width='11' height='11'/%3E%3Crect fill='%234a0035' x='80' width='11' height='11'/%3E%3Crect fill='%234b0035' x='70' y='10' width='11' height='11'/%3E%3Crect fill='%234d0034' x='60' y='20' width='11' height='11'/%3E%3Crect fill='%234e0034' x='50' y='30' width='11' height='11'/%3E%3Crect fill='%234f0033' x='40' y='40' width='11' height='11'/%3E%3Crect fill='%23500032' x='30' y='50' width='11' height='11'/%3E%3Crect fill='%23510032' x='90' width='11' height='11'/%3E%3Crect fill='%23520031' x='80' y='10' width='11' height='11'/%3E%3Crect fill='%23530031' x='70' y='20' width='11' height='11'/%3E%3Crect fill='%23550030' x='60' y='30' width='11' height='11'/%3E%3Crect fill='%23560030' x='50' y='40' width='11' height='11'/%3E%3Crect fill='%2357002f' x='40' y='50' width='11' height='11'/%3E%3Crect fill='%2358002e' x='90' y='10' width='11' height='11'/%3E%3Crect fill='%2359002e' x='80' y='20' width='11' height='11'/%3E%3Crect fill='%2359002d' x='70' y='30' width='11' height='11'/%3E%3Crect fill='%235a002d' x='60' y='40' width='11' height='11'/%3E%3Crect fill='%235b002c' x='50' y='50' width='11' height='11'/%3E%3Crect fill='%235c002b' x='90' y='20' width='11' height='11'/%3E%3Crect fill='%235d002b' x='80' y='30' width='11' height='11'/%3E%3Crect fill='%235e002a' x='70' y='40' width='11' height='11'/%3E%3Crect fill='%235f002a' x='60' y='50' width='11' height='11'/%3E%3Crect fill='%235f0029' x='90' y='30' width='11' height='11'/%3E%3Crect fill='%23600028' x='80' y='40' width='11' height='11'/%3E%3Crect fill='%23610028' x='70' y='50' width='11' height='11'/%3E%3Crect fill='%23620027' x='90' y='40' width='11' height='11'/%3E%3Crect fill='%23620027' x='80' y='50' width='11' height='11'/%3E%3Crect fill='%23630026' x='90' y='50' width='11' height='11'/%3E%3C/g%3E%3C/svg%3E");
+		// background-size: cover;
+
+		background-color: #060142;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' %3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23060142'/%3E%3Cstop offset='1' stop-color='%23640027'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpattern id='b' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Ccircle fill='%23ffffff' cx='4' cy='4' r='4'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23a)'/%3E%3Crect width='100%25' height='100%25' fill='url(%23b)' fill-opacity='0.03'/%3E%3C/svg%3E");
+		background-attachment: fixed;
+		clip-path: var(--clip-path);
+	}
+
+	&::after {
+		content: '';
+
+		position: absolute;
+		inset: var(--space-s);
+		z-index: 1;
+
+		background-color: var(--clr-primary);
+		clip-path: var(--clip-path);
+	}
+}
+
+.sh-logo {
+	--logo-transition: all 0.2s ease-in-out;
+
+	color: var(--clr-primary);
+	font-size: clamp(2.25rem, 2.068rem + 0.78vw, 3rem);
+	font-family: var(--ff-primary);
+	font-weight: 700;
+	line-height: 1;
+	text-decoration: none;
+	text-align: center;
+
+	transition: var(--logo-transition);
+
+	> span:first-child {
+		display: block;
+
+		transform: scale(1);
+
+		transition: var(--logo-transition);
+	}
+
+	> span:nth-child(2) {
+		display: block;
+		color: color-mix(in oklch, var(--clr-white) 25%, var(--clr-primary));
+		font-size: 200%;
+		font-family: var(--ff-display);
+		font-weight: 400;
+		letter-spacing: 0.05em;
+
+		transition: var(--logo-transition);
+	}
+
+	&:hover,
+	&:focus {
+		> span:nth-child(1) {
+			transform: scale(0.8);
+		}
+
+		> span:nth-child(2) {
+			color: var(--clr-primary);
+		}
+	}
+}
+
+.sh-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+
+	font-weight: 700;
+
+	a,
+	a:visited,
+	button {
+		padding: 0;
+
+		background: none;
+		border: 0;
+
+		color: var(--clr-white);
+		font-size: var(--step-2);
+
+		text-decoration: underline;
+		text-decoration-color: var(--clr-primary-l);
+		text-decoration-thickness: 0.2em;
+
+		&:hover,
+		&:focus {
+			color: var(--clr-primary);
+		}
+	}
+}

@@ -11,7 +11,7 @@ export const actions = {
 			const { data, error } = await supabase.auth.signInWithOtp({
 				email: userEmail,
 				options: {
-					emailRedirectTo: `${VITE_LOGIN_REDIRECT}/add-movie`
+					emailRedirectTo: `${VITE_LOGIN_REDIRECT}/`
 				}
 			});
 		}

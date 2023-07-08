@@ -21,7 +21,10 @@ body {
 }
 
 body {
-	font: var(--step-1) / 1.5 sans-serif;
+	background: var(--clr-dark);
+
+	color: var(--clr-white);
+	font: var(--step-1) / 1.5 var(--ff-primary);
 	-webkit-font-smoothing: antialiased;
 }
 

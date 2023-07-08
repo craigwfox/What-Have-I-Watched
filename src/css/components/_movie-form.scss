@@ -1,0 +1,50 @@
+// ---------------------------------------------
+// ======---------------------------------======
+// Movie form
+// ======---------------------------------======
+// ---------------------------------------------
+.btn {
+	--btn-color: var(--clr-primary);
+
+	padding: 0 var(--space-2xs);
+
+	border: 2px solid var(--btn-color);
+	background: var(--btn-color);
+	border-radius: 0.5rem;
+
+	color: var(--clr-white);
+
+	&-secondary {
+		--btn-color: var(--clr-secondary);
+	}
+
+	+ .btn {
+		margin-inline-start: var(--space-2xs);
+	}
+}
+
+.input-group {
+	display: grid;
+
+	label {
+		font-size: var(--step-0);
+		font-weight: 700;
+	}
+
+	input,
+	textarea,
+	select {
+		padding: 0 var(--space-2xs);
+
+		border: 1px solid var(--clr-dark);
+		border-radius: 0.3rem;
+
+		font-size: var(--step-0);
+		line-height: 1.5;
+	}
+
+	input,
+	select {
+		height: 2.2rem;
+	}
+}

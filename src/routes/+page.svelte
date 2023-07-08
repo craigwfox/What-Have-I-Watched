@@ -17,7 +17,7 @@
 	}
 </script>
 
-<div class="grid">
+<div class="movie-card-grid">
 	{#each movies as movie}
 		<MovieCard {movie} />
 	{/each}

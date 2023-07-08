@@ -1,7 +1,9 @@
-<header>
-	<h1>Fox movie night &#x1f37f;</h1>
-	<nav>
-		<a href="/">Home</a>
-		<a href="/add-movie">Add movie</a>
-	</nav>
-</header>
+<script lang="ts">
+	// imports
+	import { page } from '$app/stores';
+	import { invalidate } from '$app/navigation';
+
+	// exports
+	export let sessionStatus = $page.data.session ? true : false;
+	export let supabase;
+</script>

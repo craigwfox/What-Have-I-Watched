@@ -1,0 +1,46 @@
+/* ------------------------------------------
+======---------------------------------======
+	Type
+======---------------------------------======
+------------------------------------------ */
+
+strong,
+b {
+	font-weight: 700;
+}
+
+// ====---------------====
+// Title
+// ====---------------====
+table {
+	--border-color: color-mix(in oklch, var(--clr-dark) 70%, var(--clr-white));
+	border-collapse: collapse;
+
+	text-align: left;
+
+	th,
+	td {
+		padding-inline-end: var(--space-s);
+
+		line-height: 1;
+
+		+ td,
+		+ th {
+			padding-inline-start: var(--space-s);
+			border-inline-start: 1px solid var(--border-color);
+		}
+	}
+
+	thead {
+		th {
+			padding-block-end: var(--space-3xs);
+			border-block-end: 1px solid var(--border-color);
+		}
+	}
+
+	tbody {
+		td {
+			padding-block-start: var(--space-3xs);
+		}
+	}
+}
