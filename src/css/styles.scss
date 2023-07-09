@@ -5,14 +5,20 @@
 // ------------------------------------------ */
 
 /* Globals */
-@import './global/variables';
-@import './global/reset';
-@import './global/base';
-@import './global/type';
-
-/* Blocks */
-@import './blocks/header';
+@use './global/variables';
+@use './global/reset';
+@use './global/base';
+@use './global/type';
 
 /* Components */
-@import './components/movie-card';
-@import './components/movie-form';
+@use './components/movie-card';
+@use './components/movie-form';
+@use './components/movie-single';
+@use './components/forms';
+
+/* Blocks */
+@use './blocks/header';
+@use './blocks/footer';
+
+/* Utilities */
+@use './utilities/spacing';

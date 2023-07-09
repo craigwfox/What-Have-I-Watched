@@ -32,7 +32,7 @@
 
 <header id="site-header">
 	<a href="/" class="sh-logo"><span>What Have We</span> <span>Watched</span></a>
-	<nav class="sh-nav">
+	<nav class="sh-nav" aria-label="Site">
 		{#if sessionStatus}
 			<a href="/add-movie">Add movie</a>
 			<button on:click={signOut}>Log off</button>
@@ -46,6 +46,6 @@
 	<slot />
 </main>
 
-<footer>
+<footer class="site-footer">
 	<p>By <a href="https://craigwfox.com">Craig Fox</a></p>
 </footer>

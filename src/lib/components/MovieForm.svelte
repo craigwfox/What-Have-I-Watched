@@ -164,64 +164,60 @@
 	</h2>
 	<form id="movie-data-form" method="POST" action={formFunc}>
 		<fieldset>
-			<legend>User data</legend>
-			<div class="inputs inputs--grid">
-				<div class="input-group">
-					<label for="name">Name</label>
-					<input type="text" name="name" id="name" bind:value={movieName} required />
-				</div>
-				<div class="input-group">
-					<label for="watch_date">Watch date</label>
-					<input type="date" name="watch_date" id="watch_date" bind:value={watchDate} required />
-				</div>
-				<div class="input-group">
-					<label for="picked">Picked</label>
-					<select name="picked" id="picked" bind:value={picked} required>
-						<option value="NULL">None</option>
-						<option value="Rebecca">Rebecca</option>
-						<option value="Craig">Craig</option>
-					</select>
-				</div>
-				<div class="input-group">
-					<label for="rating_craig">Craig's rating</label>
-					<select name="rating_craig" id="rating_craig" bind:value={ratingCraig} required>
-						<option value="Great">Great</option>
-						<option value="Good">Good</option>
-						<option value="Ok">Ok</option>
-						<option value="Bad">Bad</option>
-						<option value="The fuck">The fuck</option>
-						<option value="Absolute trash">Absolute trash</option>
-					</select>
-				</div>
-				<div class="input-group">
-					<label for="rating_rebecca">Rebecca's rating</label>
-					<select name="rating_rebecca" id="rating_rebecca" bind:value={ratingRebecca} required>
-						<option value="Great">Great</option>
-						<option value="Good">Good</option>
-						<option value="Ok">Ok</option>
-						<option value="Bad">Bad</option>
-						<option value="The fuck">The fuck</option>
-						<option value="Absolute trash">Absolute trash</option>
-					</select>
+			<legend>Watch info</legend>
+			<div class="input-grid-wrapper">
+				<div class="input-grid">
+					<div class="input">
+						<label for="name">Name</label>
+						<input type="text" name="name" id="name" bind:value={movieName} required />
+					</div>
+					<div class="input">
+						<label for="watch_date">Watch date</label>
+						<input type="date" name="watch_date" id="watch_date" bind:value={watchDate} required />
+					</div>
+					<div class="input">
+						<label for="picked">Picked</label>
+						<select name="picked" id="picked" bind:value={picked} required>
+							<option value="NULL">None</option>
+							<option value="Rebecca">Rebecca</option>
+							<option value="Craig">Craig</option>
+						</select>
+					</div>
+					<div class="input">
+						<label for="rating_craig">Craig's rating</label>
+						<select name="rating_craig" id="rating_craig" bind:value={ratingCraig} required>
+							<option value="Great">Great</option>
+							<option value="Good">Good</option>
+							<option value="Ok">Ok</option>
+							<option value="Bad">Bad</option>
+							<option value="The fuck">The fuck</option>
+							<option value="Absolute trash">Absolute trash</option>
+						</select>
+					</div>
+					<div class="input">
+						<label for="rating_rebecca">Rebecca's rating</label>
+						<select name="rating_rebecca" id="rating_rebecca" bind:value={ratingRebecca} required>
+							<option value="Great">Great</option>
+							<option value="Good">Good</option>
+							<option value="Ok">Ok</option>
+							<option value="Bad">Bad</option>
+							<option value="The fuck">The fuck</option>
+							<option value="Absolute trash">Absolute trash</option>
+						</select>
+					</div>
 				</div>
 			</div>
 		</fieldset>
 
 		<fieldset>
-			<legend>Data from TMDB</legend>
+			<legend>Movie info</legend>
 
-			<button class="btn btn-secondary" type="button" on:click={openMoviesModal}
-				>Fetch movies</button
-			>
-			<button class="btn btn-primary">
-				{#if editType === 'update'}
-					Update movie
-				{:else}
-					Add new movie
-				{/if}
-			</button>
+			<div class="controls">
+				<h3>Fetches from TMDB</h3>
+				<button class="btn btn-primary" type="button" on:click={openMoviesModal}>Fetch data</button>
+			</div>
 
-			<div class="grid">
+			<div class="mbe-l movie-info-grid">
 				<input type="hidden" name="movieId" bind:value={movieId} />
 
 				{#if idMovieList && movieName !== ''}
@@ -229,10 +225,11 @@
 						<h3>Choose your movie</h3>
 						<ul>
 							{#each idMovieList as movie}
-								<li class="movie-item">
+								<li class="movie-list-item">
 									<h4>{movie.title}</h4>
 									<p>{movie.release_date}</p>
 									<button
+										class="btn btn-secondary"
 										type="button"
 										on:click={() => {
 											selectMovie(movie);
@@ -252,85 +249,89 @@
 						</ul>
 					</div>
 				{/if}
-				<div class="inputs">
-					<div class="input-group">
-						<label for="slug">Slug</label>
-						<input required type="text" name="slug" id="slug" bind:value={slug} />
+				<div class="input-grid-wrapper">
+					<div class="input-grid">
+						<div class="input">
+							<label for="slug">Slug</label>
+							<input required type="text" name="slug" id="slug" bind:value={slug} />
+						</div>
+						<div class="input">
+							<label for="imdb_id">IMDB ID</label>
+							<input required type="text" name="imdb_id" id="imdb_id" bind:value={imdbId} />
+						</div>
+						<div class="input">
+							<label for="tmdb_id">TMDB ID</label>
+							<input required type="text" name="tmdb_id" id="tmdb_id" bind:value={tmdbId} />
+						</div>
+						<div class="input">
+							<label for="release_date">Release date</label>
+							<input
+								required
+								type="text"
+								name="release_date"
+								id="release_date"
+								bind:value={releaseDate}
+							/>
+						</div>
+						<div class="input">
+							<label for="director">Director</label>
+							<input required type="text" name="director" id="director" bind:value={directorList} />
+						</div>
+						<div class="input">
+							<label for="top_case">Top cast</label>
+							<input required type="text" name="top_cast" id="top_case" bind:value={topCast} />
+						</div>
+						<div class="input">
+							<label for="genre">Genre</label>
+							<input required type="text" name="genre" id="genre" bind:value={genreList} />
+						</div>
+						<div class="input">
+							<label for="tmdb_user_score">User Score</label>
+							<input
+								required
+								type="text"
+								name="tmdb_user_score"
+								id="tmdb_user_score"
+								bind:value={tmdbUserScore}
+							/>
+						</div>
+						<div class="input">
+							<label for="poster_path">Poster path</label>
+							<input
+								required
+								type="text"
+								name="poster_path"
+								id="poster_path"
+								bind:value={posterPath}
+							/>
+						</div>
+						<div class="input">
+							<label for="backdrop_path">Backdrop path</label>
+							<input
+								required
+								type="text"
+								name="backdrop_path"
+								id="backdrop_path"
+								bind:value={backdropPath}
+							/>
+						</div>
+						<div class="input">
+							<label for="overview">Overview</label>
+							<textarea
+								required
+								name="overview"
+								id="overview"
+								bind:value={overview}
+								cols="30"
+								rows="10"
+							/>
+						</div>
+						<input type="hidden" name={slugCurrent} />
 					</div>
-					<div class="input-group">
-						<label for="imdb_id">IMDB ID</label>
-						<input required type="text" name="imdb_id" id="imdb_id" bind:value={imdbId} />
-					</div>
-					<div class="input-group">
-						<label for="tmdb_id">TMDB ID</label>
-						<input required type="text" name="tmdb_id" id="tmdb_id" bind:value={tmdbId} />
-					</div>
-					<div class="input-group">
-						<label for="release_date">Release date</label>
-						<input
-							required
-							type="text"
-							name="release_date"
-							id="release_date"
-							bind:value={releaseDate}
-						/>
-					</div>
-					<div class="input-group">
-						<label for="director">Director</label>
-						<input required type="text" name="director" id="director" bind:value={directorList} />
-					</div>
-					<div class="input-group">
-						<label for="top_case">Top cast</label>
-						<input required type="text" name="top_cast" id="top_case" bind:value={topCast} />
-					</div>
-					<div class="input-group">
-						<label for="genre">Genre</label>
-						<input required type="text" name="genre" id="genre" bind:value={genreList} />
-					</div>
-					<div class="input-group">
-						<label for="tmdb_user_score">User Score</label>
-						<input
-							required
-							type="text"
-							name="tmdb_user_score"
-							id="tmdb_user_score"
-							bind:value={tmdbUserScore}
-						/>
-					</div>
-					<div class="input-group">
-						<label for="poster_path">Poster path</label>
-						<input
-							required
-							type="text"
-							name="poster_path"
-							id="poster_path"
-							bind:value={posterPath}
-						/>
-					</div>
-					<div class="input-group">
-						<label for="backdrop_path">Backdrop path</label>
-						<input
-							required
-							type="text"
-							name="backdrop_path"
-							id="backdrop_path"
-							bind:value={backdropPath}
-						/>
-					</div>
-					<div class="input-group">
-						<label for="overview">Overview</label>
-						<textarea
-							required
-							name="overview"
-							id="overview"
-							bind:value={overview}
-							cols="30"
-							rows="10"
-						/>
-					</div>
-					<input type="hidden" name={slugCurrent} />
 				</div>
 			</div>
+
+			<button class="btn btn-primary">Add movie</button>
 		</fieldset>
 	</form>
 </div>

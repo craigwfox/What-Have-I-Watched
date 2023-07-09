@@ -1,31 +1,74 @@
+@use '../mixins' as *;
+
 // ---------------------------------------------
 // ======---------------------------------======
 // Movie form
 // ======---------------------------------======
 // ---------------------------------------------
+.movie-info-grid {
+	gap: var(--space-m);
 
-.input-group {
+	@include mqMed {
+		display: grid;
+		grid-template-columns: 1fr 30rem;
+	}
+
+	.input-grid {
+		@include mqMed {
+			grid-column: 1;
+			grid-row: 1;
+		}
+	}
+}
+
+.movie-list {
+	max-height: 40rem;
+	overflow-y: auto;
+
+	@include mqMed {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	h3 {
+		font-size: var(--step-3);
+	}
+
+	ul {
+		display: grid;
+		gap: var(--space-s);
+
+		padding: 0;
+		list-style: none;
+	}
+}
+
+.movie-list-item {
 	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: repeat(2, auto) 1fr;
+	place-items: start;
+	column-gap: var(--space-s);
 
-	label {
-		font-size: var(--step-0);
-		font-weight: 700;
+	h4 {
+		grid-column: 2;
+		grid-row: 1;
 	}
 
-	input,
-	textarea,
-	select {
-		padding: 0 var(--space-2xs);
-
-		border: 1px solid var(--clr-dark);
-		border-radius: 0.3rem;
-
-		font-size: var(--step-0);
-		line-height: 1.5;
+	p {
+		grid-column: 2;
+		grid-row: 2;
 	}
 
-	input,
-	select {
-		height: 2.2rem;
+	button {
+		grid-column: 2;
+		grid-row: 3;
+	}
+
+	img {
+		max-height: 200px;
+
+		grid-column: 1;
+		grid-row: 1 / 4;
 	}
 }

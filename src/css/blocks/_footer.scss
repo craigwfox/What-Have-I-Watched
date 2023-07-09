@@ -1,0 +1,29 @@
+// ---------------------------------------------
+// ======---------------------------------======
+//  Footer
+// ======---------------------------------======
+// ---------------------------------------------
+
+.site-footer {
+	display: grid;
+	place-items: center;
+
+	margin-inline: var(--wrapper-main);
+	padding-block: var(--space-m);
+
+	border-top: 1rem solid var(--clr-primary);
+
+	color: var(--clr-white);
+
+	a,
+	a:visited {
+		color: var(--clr-primary);
+		transition: color 0.2s ease-in-out;
+		text-decoration-thickness: 0.2rem;
+
+		&:hover,
+		&:focus {
+			color: var(--clr-primary-l);
+		}
+	}
+}

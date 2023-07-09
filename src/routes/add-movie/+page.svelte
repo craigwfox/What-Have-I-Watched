@@ -15,7 +15,7 @@
 </script>
 
 {#if sessionStatus}
-	<section aria-labelledby="title-add-movie">
+	<section aria-labelledby="title-add-movie" class="wrapper">
 		<h1 id="title-add-movie">Add a new movie</h1>
 		{#if form?.movieExists}
 			<h2>Movie already exists</h2>
