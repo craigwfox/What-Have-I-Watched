@@ -12,17 +12,49 @@
 	let { movie } = data;
 
 	let slug = $page.params.slug;
-</script>
 
-{#if sessionStatus}
-	<button>Update movie</button>
-	<dialog>
-		<MovieForm editType="update" movieData={movie} slugCurrent={slug} formFunc="?/updateMovie" />
-	</dialog>
-{/if}
+	function openModal(e) {
+		const modalId = e.target.getAttribute('data-modal');
+		document.getElementById(modalId)?.show();
+		document.querySelector('body')?.classList.add('modal-open');
+	}
+
+	function closeModal(e) {
+		const modalId = e.target.getAttribute('data-modal');
+		document.getElementById(modalId)?.close();
+		document.querySelector('body')?.classList.remove('modal-open');
+	}
+</script>
 
 <div class="movie-single wrapper">
 	<h1>{movie.name}</h1>
+
+	{#if sessionStatus}
+		<div class="movie-update">
+			<button
+				on:click={openModal}
+				data-modal="updateModal"
+				type="button"
+				class="btn btn-secondary btn-sm mbe-m">Update movie</button
+			>
+			<dialog id="updateModal">
+				<button
+					on:click={closeModal}
+					data-modal="updateModal"
+					type="button"
+					class="btn btn-secondary btn-sm"
+				>
+					Close
+				</button>
+				<MovieForm
+					editType="update"
+					movieData={movie}
+					slugCurrent={slug}
+					formFunc="?/updateMovie"
+				/>
+			</dialog>
+		</div>
+	{/if}
 
 	<div class="ms__grid">
 		<div class="ms__watch">

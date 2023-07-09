@@ -331,7 +331,9 @@
 				</div>
 			</div>
 
-			<button class="btn btn-primary">Add movie</button>
+			<button class="btn btn-primary">
+				{#if editType === 'update'}Update{:else}Add{/if} movie
+			</button>
 		</fieldset>
 	</form>
 </div>
