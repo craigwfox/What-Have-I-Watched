@@ -1,0 +1,24 @@
+/* ---------------------------------------------
+// ======---------------------------------======
+// App styles
+// ======---------------------------------======
+// ------------------------------------------ */
+
+/* Globals */
+@use './global/variables';
+@use './global/reset';
+@use './global/base';
+@use './global/type';
+
+/* Components */
+@use './components/movie-card';
+@use './components/movie-form';
+@use './components/movie-single';
+@use './components/forms';
+
+/* Blocks */
+@use './blocks/header';
+@use './blocks/footer';
+
+/* Utilities */
+@use './utilities/spacing';

@@ -1,9 +1,9 @@
-<div>
-	<form method="POST" action="?/login">
-		<label for="email">
-			Email
+<div class="wrapper">
+	<form class="form" method="POST" action="?/login">
+		<div class="input">
+			<label for="email">Email</label>
 			<input id="email" name="email" type="email" />
-		</label>
-		<button>Log in</button>
+		</div>
+		<button class="btn btn-primary">Log in</button>
 	</form>
 </div>

@@ -1,4 +1,16 @@
 :root {
+	/* Colors */
+	--clr-primary: oklch(63.8% 0.245 8);
+	--clr-primary-l: oklch(70% 0.245 8);
+	--clr-secondary: oklch(61.4% 0.187 249.4);
+	--clr-dark: oklch(15.4% 0.042 8);
+	--clr-white: #efefef;
+	--clr-white-off: oklch(90.4% 0.042 8);
+
+	/* Font families */
+	--ff-primary: 'Rubik', sans-serif;
+	--ff-display: 'Bangers', sans-serif;
+
 	/* Font sizing */
 	--step--2: clamp(0.72rem, calc(0.8rem + -0.09vw), 0.78rem);
 	--step--1: clamp(0.9rem, calc(0.95rem + -0.05vw), 0.94rem);

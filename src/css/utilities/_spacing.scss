@@ -1,0 +1,35 @@
+// ---------------------------------------------
+// ======---------------------------------======
+//  spacing
+// ======---------------------------------======
+// ---------------------------------------------
+
+$sizes: '3xs', '2xs' 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl';
+
+// ===------ Margin block start ------===
+@each $size in $sizes {
+	.mbs-#{$size} {
+		margin-block-start: var(--space-#{$size});
+	}
+}
+
+// ===------ Margin block end ------===
+@each $size in $sizes {
+	.mbe-#{$size} {
+		margin-block-end: var(--space-#{$size});
+	}
+}
+
+// ===------ Padding block start ------===
+@each $size in $sizes {
+	.pbs-#{$size} {
+		padding-block-start: var(--space-#{$size});
+	}
+}
+
+// ===------ Padding block end ------===
+@each $size in $sizes {
+	.pbe-#{$size} {
+		padding-block-end: var(--space-#{$size});
+	}
+}

@@ -1,0 +1,30 @@
+/* ------------------------------------------
+======---------------------------------======
+	Base
+======---------------------------------======
+------------------------------------------ */
+
+.flow {
+	> * + * {
+		margin-block-start: 1em;
+	}
+}
+
+.content-flow {
+	> p + *,
+	> ul + * {
+		margin-block-start: var(--space-s);
+	}
+}
+
+.wrapper {
+	padding-block: var(--space-m);
+	margin-inline: var(--wrapper-main);
+}
+
+.border-top {
+	margin-top: var(--space-xl);
+	padding-top: var(--space-m);
+
+	border-top: 2px solid var(--clr-secondary);
+}

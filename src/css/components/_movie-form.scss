@@ -1,0 +1,111 @@
+@use '../mixins' as *;
+
+// ---------------------------------------------
+// ======---------------------------------======
+// Movie form
+// ======---------------------------------======
+// ---------------------------------------------
+.movie-info-grid {
+	gap: var(--space-m);
+
+	@include mqMed {
+		display: grid;
+		grid-template-columns: 1fr 30rem;
+	}
+
+	.input-grid {
+		@include mqMed {
+			grid-column: 1;
+			grid-row: 1;
+		}
+	}
+}
+
+.movie-list {
+	max-height: 40rem;
+	overflow-y: auto;
+
+	@include mqMed {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	h3 {
+		font-size: var(--step-3);
+	}
+
+	ul {
+		display: grid;
+		gap: var(--space-s);
+
+		padding: 0;
+		list-style: none;
+	}
+}
+
+.movie-list-item {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: repeat(2, auto) 1fr;
+	place-items: start;
+	column-gap: var(--space-s);
+
+	h4 {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	p {
+		grid-column: 2;
+		grid-row: 2;
+	}
+
+	button {
+		grid-column: 2;
+		grid-row: 3;
+	}
+
+	img {
+		max-height: 200px;
+
+		grid-column: 1;
+		grid-row: 1 / 4;
+	}
+}
+
+// ====---------------====
+// Update modal
+// ====---------------====
+#updateModal {
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	overflow-y: auto;
+
+	display: block;
+	position: fixed;
+	top: 0;
+	right: -100%;
+	left: initial;
+	opacity: 0;
+
+	transition: all 0.2s ease-in-out;
+
+	padding-block-start: 3rem;
+
+	border: 0.5rem solid color-mix(in oklch, var(--clr-dark) 50%, var(--clr-secondary));
+	background-color: var(--clr-dark);
+
+	color: var(--clr-white);
+
+	&[open] {
+		opacity: 1;
+		right: 0;
+	}
+
+	> .btn {
+		position: absolute;
+		top: 0.7rem;
+		right: 0.7rem;
+	}
+}
