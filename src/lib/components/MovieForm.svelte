@@ -13,7 +13,7 @@
 
 	let movieName = '';
 	let watchDate = '';
-	let picked = '';
+	let picked = 'none';
 	let ratingCraig = '';
 	let ratingRebecca = '';
 	let imdbId = '';
@@ -37,7 +37,7 @@
 	if (editType === 'update') {
 		movieName = movieData.name;
 		watchDate = movieData.watch_date;
-		picked = movieData.picked;
+		picked = movieData.picked === null ? 'none' : movieData.picked;
 		ratingCraig = movieData.rating_craig;
 		ratingRebecca = movieData.rating_rebecca;
 		imdbId = movieData.imdb_id;
@@ -178,7 +178,7 @@
 					<div class="input">
 						<label for="picked">Picked</label>
 						<select name="picked" id="picked" bind:value={picked} required>
-							<option value="NULL">None</option>
+							<option value="none">None</option>
 							<option value="Rebecca">Rebecca</option>
 							<option value="Craig">Craig</option>
 						</select>
@@ -196,7 +196,7 @@
 					</div>
 					<div class="input">
 						<label for="rating_rebecca">Rebecca's rating</label>
-						<select name="rating_rebecca" id="rating_rebecca" bind:value={ratingRebecca} required>
+						<select name="rating_rebecca" id="rating_rebecca" bind:value={ratingRebecca}>
 							<option value="Great">Great</option>
 							<option value="Good">Good</option>
 							<option value="Ok">Ok</option>
