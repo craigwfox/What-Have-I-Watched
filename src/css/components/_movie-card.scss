@@ -9,6 +9,20 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 	gap: var(--space-xl) 0;
+
+	// &:has(.movie-card > a:hover) {
+	// 	.movie-card {
+	// 		img {
+	// 			opacity: 0.5;
+	// 		}
+
+	// 		&:has(> a:hover) {
+	// 			img {
+	// 				opacity: 1;
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
 
 .movie-card {
@@ -17,6 +31,12 @@
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: auto 1fr repeat(3, auto);
+
+	transition: all 0.2s ease-in-out;
+
+	&:hover {
+		grid-column: span 2;
+	}
 
 	> a {
 		overflow: hidden;
