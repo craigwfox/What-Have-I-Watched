@@ -24,7 +24,6 @@
 		document.getElementById(modalId)?.close();
 		document.querySelector('body')?.classList.remove('modal-open');
 	}
-	console.log(movie.watch_date);
 </script>
 
 <div class="movie-single wrapper">
