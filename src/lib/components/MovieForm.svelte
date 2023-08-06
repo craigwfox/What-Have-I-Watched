@@ -43,9 +43,9 @@
 		imdbId = movieData.imdb_id;
 		tmdbId = movieData.tmdb_id;
 		releaseDate = movieData.release_date;
-		directorList = movieData.director;
-		topCast = movieData.top_cast;
-		genreList = movieData.genre;
+		directorList = parseJson(movieData.director);
+		topCast = parseJson(movieData.top_cast);
+		genreList = parseJson(movieData.genre);
 		tmdbUserScore = movieData.tmdb_user_score;
 		posterPath = movieData.poster_path;
 		backdropPath = movieData.backdrop_path;

@@ -14,7 +14,6 @@ export const tmdbPercent = (score: number) => {
 //convert date to a human readable format
 export const formatDate = (date: string) => {
 	const d = new Date(date);
-	console.log(d);
 	return d.toLocaleDateString('en-US', {
 		year: 'numeric',
 		month: 'long',
