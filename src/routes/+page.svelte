@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { object_without_properties } from 'svelte/internal';
 	import MovieCard from '$lib/components/MovieCard.svelte';
 
 	export let data;

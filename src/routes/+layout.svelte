@@ -3,28 +3,30 @@
 	import { page } from '$app/stores';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { redirect } from '@sveltejs/kit';
 
 	export let data;
 	export let sessionStatus = $page.data.session ? true : false;
 
-	$: ({ supabase } = data);
+	let { supabase, session } = data;
+	$: ({ supabase, session } = data);
 
 	onMount(() => {
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange(() => {
-			invalidate('supabase:auth');
+			if ($page.status != 404) {
+				invalidate('supabase:auth');
+			}
 		});
 
 		return () => subscription.unsubscribe();
 	});
 
-	async function signOut() {
+	function signOut() {
 		async function supaOut() {
 			const { error } = await supabase.auth.signOut();
 		}
-		await supaOut().then(() => {
+		supaOut().then(() => {
 			window.location.href = '/';
 		});
 	}
@@ -33,6 +35,7 @@
 <header id="site-header">
 	<a href="/" class="sh-logo"><span>What Have We</span> <span>Watched</span></a>
 	<nav class="sh-nav" aria-label="Site">
+		<a href="/stats">Stats</a>
 		{#if sessionStatus}
 			<a href="/add-movie">Add movie</a>
 			<button on:click={signOut}>Log off</button>
