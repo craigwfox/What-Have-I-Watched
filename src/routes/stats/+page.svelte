@@ -12,23 +12,27 @@
 
 		for (const movie in movies) {
 			const index = parseInt(movie);
-			const genresArr = parseJson(movies[index].genre);
-			if (genresArr != null) {
-				genresArr.forEach((genre) => {
-					if (genreObj[genre.toLowerCase()]) {
-						genreObj[genre.toLowerCase()][1] += 1;
-					} else {
-						genreObj[genre.toLowerCase()] = [genre, 1];
-					}
-				});
+			const genresArr = movies[index].genre;
+			console.log(typeof genresArr);
+			if (typeof genresArr != 'object') {
+				console.log(genresArr, movies[index].name);
 			}
+			// if (genresArr != null) {
+			// 	genresArr.forEach((genre) => {
+			// 		if (genreObj[genre.toLowerCase()]) {
+			// 			genreObj[genre.toLowerCase()][1] += 1;
+			// 		} else {
+			// 			genreObj[genre.toLowerCase()] = [genre, 1];
+			// 		}
+			// 	});
+			// }
 		}
 
 		return genreObj;
 	}
 	function sortGenres() {
 		const genreObj = getGenres();
-		console.log(genreObj);
+		// console.log(genreObj);
 	}
 	sortGenres();
 
