@@ -18,6 +18,8 @@
 	grid-template-columns: 1fr;
 	grid-template-rows: auto 1fr repeat(3, auto);
 
+	transition: all 0.2s ease-in-out;
+
 	> a {
 		overflow: hidden;
 		transition: all 0.2s ease-in-out;
@@ -34,8 +36,6 @@
 
 		&:hover,
 		&:focus {
-			// opacity: 0.8;
-
 			img {
 				scale: 1.1;
 			}
