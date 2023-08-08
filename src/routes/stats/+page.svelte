@@ -5,48 +5,63 @@
 	export let data;
 	let { movies } = data;
 	$: ({ movies } = data);
-	let genreList = null;
+	let genreList = createList('genre');
+	let directorList = createList('director');
+	let actorList = createList('top_cast');
+	// console.log(actorList);
+
+	// sort objects
+	function getTopList(obj, count = 10) {
+		return Object.fromEntries(
+			Object.entries(obj)
+				.sort(([, a], [, b]) => b[1] - a[1])
+				.slice(0, count)
+		);
+	}
+
 	// most watched genre
-	function getGenres() {
-		let genreObj = {};
+	function createList(key) {
+		let newObj = {};
 
 		for (const movie in movies) {
 			const index = parseInt(movie);
-			const genresArr = movies[index].genre;
-			console.log(typeof genresArr);
-			if (typeof genresArr != 'object') {
-				console.log(genresArr, movies[index].name);
+			const tempArr = parseJson(movies[index][key]);
+			if (tempArr != null) {
+				tempArr.forEach((item) => {
+					if (newObj[item.toLowerCase()]) {
+						newObj[item.toLowerCase()][1] += 1;
+					} else {
+						newObj[item.toLowerCase()] = [item, 1];
+					}
+				});
 			}
-			// if (genresArr != null) {
-			// 	genresArr.forEach((genre) => {
-			// 		if (genreObj[genre.toLowerCase()]) {
-			// 			genreObj[genre.toLowerCase()][1] += 1;
-			// 		} else {
-			// 			genreObj[genre.toLowerCase()] = [genre, 1];
-			// 		}
-			// 	});
-			// }
 		}
 
-		return genreObj;
+		return newObj;
 	}
-	function sortGenres() {
-		const genreObj = getGenres();
-		// console.log(genreObj);
-	}
-	sortGenres();
-
-	// Top 5 Actors
-	// Top 5 Directors
 </script>
 
 <div class="wrapper">
 	<h1>Stats</h1>
 
-	<h2>Genres</h2>
-	<ul>
-		<!-- {#each Object.entries(genreList) as [key, genre]}
-			<li />
-		{/each} -->
-	</ul>
+	<h2>Top 5 Genres</h2>
+	<ol>
+		{#each Object.entries(getTopList(genreList, 5)) as [key, genre]}
+			<li><strong>{genre[0]}</strong>: {genre[1]} movies</li>
+		{/each}
+	</ol>
+
+	<h2>Top 10 Actors</h2>
+	<ol>
+		{#each Object.entries(getTopList(actorList)) as [key, actor]}
+			<li><strong>{actor[0]}</strong>: {actor[1]} movies</li>
+		{/each}
+	</ol>
+
+	<h2>Top 10 Directors</h2>
+	<ol>
+		{#each Object.entries(getTopList(directorList)) as [key, director]}
+			<li><strong>{director[0]}</strong>: {director[1]} movies</li>
+		{/each}
+	</ol>
 </div>
