@@ -8,7 +8,24 @@
 	let genreList = createList('genre');
 	let directorList = createList('director');
 	let actorList = createList('top_cast');
-	// console.log(actorList);
+	let picksList = {
+		craig: {
+			name: 'Craig',
+			count: 0
+		},
+		rebecca: {
+			name: 'Rebecca',
+			count: 0
+		}
+	};
+	let ratings = {
+		Great: ['Great', 0, 0],
+		Good: ['Good', 0, 0],
+		Ok: ['Ok', 0, 0],
+		Bad: ['Bad', 0, 0],
+		'The fuck': ['The fuck', 0, 0],
+		'Absolute trash': ['Absolute trash', 0, 0]
+	};
 
 	// sort objects
 	function getTopList(obj, count = 10) {
@@ -39,29 +56,105 @@
 
 		return newObj;
 	}
+
+	// get pick counts
+	function getPickCount() {
+		for (const movie in movies) {
+			const index = parseInt(movie);
+			const picked = movies[index].picked;
+
+			if (picked != 'NULL' && picked != 'none' && picked != null) {
+				if (picked === 'Craig') {
+					picksList.craig.count += 1;
+					ratings[movies[index].rating_craig][1] += 1;
+				} else if (picked === 'Rebecca') {
+					picksList.rebecca.count += 1;
+					ratings[movies[index].rating_rebecca][2] += 1;
+				}
+			}
+		}
+	}
+	getPickCount();
 </script>
 
 <div class="wrapper">
 	<h1>Stats</h1>
 
-	<h2>Top 5 Genres</h2>
-	<ol>
-		{#each Object.entries(getTopList(genreList, 5)) as [key, genre]}
-			<li><strong>{genre[0]}</strong>: {genre[1]} movies</li>
-		{/each}
-	</ol>
+	<section class="stats-section" aria-labelledby="movie-stats">
+		<h2 id="movie-stats">Movie stats</h2>
+		<div class="stats-grid">
+			<div>
+				<h3>Pick count</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Picked</th>
+							<th>Count</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each Object.values(picksList) as pick}
+							<tr>
+								<td>{pick.name}</td>
+								<td>{pick.count}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<h3>Pick Ratings</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Rating</th>
+							<th>Craig Count</th>
+							<th>Rebecca Count</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each Object.values(ratings) as rating}
+							<tr>
+								<td>{rating[0]}</td>
+								<td>{rating[1]}</td>
+								<td>{rating[2]}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 
-	<h2>Top 10 Actors</h2>
-	<ol>
-		{#each Object.entries(getTopList(actorList)) as [key, actor]}
-			<li><strong>{actor[0]}</strong>: {actor[1]} movies</li>
-		{/each}
-	</ol>
+	<section class="stats-section" aria-labelledby="movie-stats">
+		<h2 id="movie-stats">Movie stats</h2>
+		<div class="stats-grid">
+			<div>
+				<h3>Top 5 Genres</h3>
+				<ol>
+					{#each Object.entries(getTopList(genreList, 5)) as [key, genre]}
+						<li>{genre[0]}: <small>{genre[1]}</small></li>
+					{/each}
+				</ol>
+			</div>
 
-	<h2>Top 10 Directors</h2>
-	<ol>
-		{#each Object.entries(getTopList(directorList)) as [key, director]}
-			<li><strong>{director[0]}</strong>: {director[1]} movies</li>
-		{/each}
-	</ol>
+			<div>
+				<h3>Top 10 Actors</h3>
+				<ol>
+					{#each Object.entries(getTopList(actorList)) as [key, actor]}
+						<li>{actor[0]}: <small>{actor[1]}</small></li>
+					{/each}
+				</ol>
+			</div>
+
+			<div>
+				<h3>Top 10 Directors</h3>
+				<ol>
+					{#each Object.entries(getTopList(directorList)) as [key, director]}
+						<li>{director[0]}: <small>{director[1]}</small></li>
+					{/each}
+				</ol>
+			</div>
+		</div>
+	</section>
 </div>
