@@ -6,7 +6,7 @@ export const load = async ({ locals: { getSession } }) => {
 
 	// redirect user if not logged in
 	if (!session) {
-		throw redirect(302, '/login');
+		throw redirect(302, '/auth');
 	}
 };
 
@@ -42,7 +42,6 @@ export const actions = {
 		if (existingMovie[0]) {
 			return { movieExists: true, existingMovie: existingMovie[0] };
 		} else if (existingMovieError) {
-			console.log(existingMovieError);
 			return existingMovieError;
 		}
 		// if no existing movie, add movie

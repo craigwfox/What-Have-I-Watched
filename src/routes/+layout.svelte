@@ -13,8 +13,8 @@
 	onMount(() => {
 		const {
 			data: { subscription }
-		} = supabase.auth.onAuthStateChange(() => {
-			if ($page.status != 404) {
+		} = supabase.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
 			}
 		});
@@ -40,7 +40,7 @@
 			<a href="/add-movie">Add movie</a>
 			<button on:click={signOut}>Log off</button>
 		{:else}
-			<a href="/login">Login</a>
+			<a href="/auth">Login</a>
 		{/if}
 	</nav>
 </header>
