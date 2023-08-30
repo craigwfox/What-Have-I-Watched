@@ -7,7 +7,6 @@
 	export let data;
 	export let sessionStatus = $page.data.session ? true : false;
 
-	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
 
 	onMount(() => {
