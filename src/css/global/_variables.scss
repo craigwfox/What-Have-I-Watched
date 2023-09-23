@@ -49,5 +49,12 @@
 	--width-max: 90rem;
 
 	/* Wrappers */
-	--wrapper-main: max(var(--space-l), (100% - calc(var(--width-max) - var(--space-l) * 2)) / 2);
+	--wrapper-main-s: max(
+		var(--space-s),
+		(100% - calc(var(--width-max) - var(--space-s) * 2)) / 2
+	);
+	--wrapper-main: max(
+		var(--space-l),
+		(100% - calc(var(--width-max) - var(--space-l) * 2)) / 2
+	);
 }
