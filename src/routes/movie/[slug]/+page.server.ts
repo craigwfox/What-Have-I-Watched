@@ -26,7 +26,7 @@ export async function load({ params, url }) {
 	const { data, error: supaError } = await getSupaMovie();
 
 	if (data?.length === 0 || supaError) {
-		throw error(404, 'Movie not found');
+		error(404, 'Movie not found');
 	} else {
 		movieLoadData = data[0];
 
@@ -82,7 +82,7 @@ export const actions = {
 				return supaError;
 			} else if (newData) {
 				if (newData[0].slug !== slug_current) {
-					throw redirect(303, `/movie/${newData[0].slug}`);
+					redirect(303, `/movie/${newData[0].slug}`);
 				} else {
 					return newData;
 				}
