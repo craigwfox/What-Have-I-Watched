@@ -6,7 +6,7 @@ export const load = async ({ locals: { getSession } }) => {
 
 	// redirect user if not logged in
 	if (!session) {
-		throw redirect(302, '/auth');
+		redirect(302, '/auth');
 	}
 };
 
