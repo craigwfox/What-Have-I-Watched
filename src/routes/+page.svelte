@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import MovieCard from '$lib/components/MovieCard.svelte';
 
 	export let data;
@@ -10,7 +10,7 @@
 		return new Date(b.watch_date) - new Date(a.watch_date);
 	});
 
-	function checkForSlug(slug: string) {
+	function checkForSlug(slug) {
 		if (slug) return true;
 		return false;
 	}

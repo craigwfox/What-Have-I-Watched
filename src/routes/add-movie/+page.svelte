@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	// imports
 	import { page } from '$app/stores';
 	import { slugify } from '$lib/functions/utilities';
@@ -28,11 +28,18 @@
 		{:else if form?.newMovieAdded}
 			<h2>Movie added</h2>
 			<p>
-				View your new entry for <a href={'/movie/' + form?.newMovie.slug}>{form?.newMovie.name}</a>
+				View your new entry for <a href={'/movie/' + form?.newMovie.slug}
+					>{form?.newMovie.name}</a
+				>
 				<br />Or add <a href="/add-movie">another movie</a>
 			</p>
 		{:else}
-			<MovieForm editType="new" movieData={movie} slugCurrent={slug} formFunc="?/addMovie" />
+			<MovieForm
+				editType="new"
+				movieData={movie}
+				slugCurrent={slug}
+				formFunc="?/addMovie"
+			/>
 		{/if}
 	</section>
 {/if}
