@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	// imports
 	import { page } from '$app/stores';
 	import MovieForm from '$lib/components/MovieForm.svelte';
@@ -60,7 +60,10 @@
 		<div class="ms__watch">
 			<div class="content-flow">
 				<h2>Watch info</h2>
-				<p class="movie-stat"><strong>Watched:</strong> {formatDate(movie.watch_date)}</p>
+				<p class="movie-stat">
+					<strong>Watched:</strong>
+					{formatDate(movie.watch_date)}
+				</p>
 				<p class="movie-stat"><strong>Picked:</strong> {movie.picked}</p>
 				<div class="mc__rating">
 					<h3 class="movie-stat">Ratings</h3>
