@@ -26,6 +26,7 @@
 		['The fuck', 0, 0],
 		['Absolute trash', 0, 0]
 	];
+	let byYear = null;
 
 	// sort objects
 	function getTopList(obj, count = 10) {
@@ -104,24 +105,41 @@
 			if (picked != 'NULL' && picked != 'none' && picked != null) {
 				if (picked === 'Craig') {
 					ratings[
-						getRatingAverage(movies[index].rating_craig, movies[index].rating_rebecca)
+						getRatingAverage(
+							movies[index].rating_craig,
+							movies[index].rating_rebecca
+						)
 					][1] += 1;
 				} else if (picked === 'Rebecca') {
 					ratings[
-						getRatingAverage(movies[index].rating_craig, movies[index].rating_rebecca)
+						getRatingAverage(
+							movies[index].rating_craig,
+							movies[index].rating_rebecca
+						)
 					][2] += 1;
 				}
 			}
 		}
 	}
 	getRatingsCount();
+
+	// get movies by year
+	function getMoviesByYear() {
+		const yearObj = {};
+		movies.map((x) => {
+			const year = new Date(x.watch_date).getFullYear();
+			yearObj[year] ? (yearObj[year] += 1) : (yearObj[year] = 1);
+		});
+		byYear = yearObj;
+	}
+	getMoviesByYear();
 </script>
 
 <div class="wrapper">
 	<h1>Stats</h1>
 
-	<section class="stats-section" aria-labelledby="movie-stats">
-		<h2 id="movie-stats">Movie stats</h2>
+	<section class="stats-section" aria-labelledby="watch-stats">
+		<h2 id="movie-stats">Watch stats</h2>
 		<div class="stats-grid">
 			<div>
 				<h3>Pick count</h3>
@@ -160,6 +178,25 @@
 								<td>{rating[2]}</td>
 							</tr>
 						{/each}
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<h3>By year</h3>
+				<table>
+					<thead>
+						<tr>
+							{#each Object.keys(byYear) as year}
+								<th>{year}</th>
+							{/each}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							{#each Object.values(byYear) as year}
+								<td>{year}</td>
+							{/each}
+						</tr>
 					</tbody>
 				</table>
 			</div>
