@@ -1,7 +1,6 @@
 <script>
 	// imports
 	import { page } from '$app/stores';
-	import { slugify } from '$lib/functions/utilities';
 	import MovieForm from '$lib/components/MovieForm.svelte';
 
 	// exports

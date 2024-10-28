@@ -1,17 +1,18 @@
 import { env } from '$env/dynamic/private';
 import { redirect } from '@sveltejs/kit';
 
-export const load = async ({ locals: { getSession } }) => {
-	const session = await getSession();
+export const load = async ({ locals: { safeGetSession } }) => {
+	const { session } = await safeGetSession();
 
 	// redirect user if not logged in
-	if (!session) {
+	if (session === null) {
+		console.log('no session');
 		redirect(302, '/auth');
 	}
 };
 
 export const actions = {
-	addMovie: async ({ request, locals: { getSession, supabase } }) => {
+	addMovie: async ({ request, locals: { supabase } }) => {
 		const data = await request.formData();
 		const movieData = {
 			name: data.get('name'),

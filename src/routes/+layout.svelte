@@ -7,17 +7,18 @@
 	export let data;
 	export let sessionStatus = $page.data.session ? true : false;
 
+	let { supabase, session } = data
 	$: ({ supabase, session } = data);
 
 	onMount(() => {
-		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
-			if (_session?.expires_at !== session?.expires_at) {
-				invalidate('supabase:auth');
+		const { data } = supabase.auth.onAuthStateChange((event, newSession) => {
+			if (newSession?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth')
 			}
-		});
+		})
 
-		return () => data.subscription.unsubscribe();
-	});
+		return () => data.subscription.unsubscribe()
+	})
 
 	function signOut() {
 		async function supaOut() {
@@ -27,6 +28,7 @@
 			window.location.href = '/';
 		});
 	}
+
 </script>
 
 <header id="site-header">
