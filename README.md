@@ -1,28 +1,75 @@
-# Movies
+# Nuxt Minimal Starter
 
-## TODO
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-### Features
+## Setup
 
-#### Movie landing
+Make sure to install dependencies:
 
-- get data on load not build, maybe an edge function
-- page data
+```bash
+# npm
+npm install
 
-#### Update option
+# pnpm
+pnpm install
 
-- Need an option to update movies
+# yarn
+yarn install
 
-#### Add movie
+# bun
+bun install
+```
 
-- check for duplicate movie
-- validate fields / print error messages
-- success notice
-- failure notice
-- Maybe a re-watch option?
+## Development Server
 
-### Data fixes
+Start the development server on `http://localhost:3000`:
 
-#### Long Shot
+```bash
+# npm
+npm run dev
 
-needs picked fixed
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

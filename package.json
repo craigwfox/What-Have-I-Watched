@@ -1,43 +1,24 @@
 {
-	"name": "fox-movies",
-	"version": "1.0.0",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.3.0",
-		"@sveltejs/adapter-netlify": "^4.3.5",
-		"@sveltejs/kit": "^2.7.2",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0",
-		"autoprefixer": "^10.4.20",
-		"cssnano": "^7.0.6",
-		"eslint": "^9.13.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.46.0",
-		"postcss": "^8.4.47",
-		"postcss-import": "^16.1.0",
-		"postcss-load-config": "^6.0.1",
-		"postcss-preset-env": "^10.0.8",
-		"prettier": "^3.3.3",
-		"prettier-plugin-svelte": "^3.2.7",
-		"sass": "^1.80.4",
-		"svelte": "^5.1.0",
-		"svelte-check": "^4.0.5",
-		"svelte-preprocess": "^6.0.3",
-		"typescript": "^5.6.3",
-		"vite": "^5.4.10"
-	},
-	"type": "module",
-	"dependencies": {
-		"@supabase/auth-helpers-sveltekit": "^0.13.0",
-		"@supabase/ssr": "^0.5.1",
-		"@supabase/supabase-js": "^2.45.6"
-	}
+  "name": "nuxt-app",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/eslint": "^1.8.0",
+    "@nuxt/image": "^1.11.0",
+    "eslint": "^9.33.0",
+    "nuxt": "^4.0.3",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "vue-tsc": "^3.0.5"
+  }
 }
